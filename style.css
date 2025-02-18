@@ -1,0 +1,166 @@
+
+/* home */
+fieldset{
+    padding: 10px;
+    border-radius: 20px;
+}
+#verification{
+    display: inline-block;
+    width: 300px;
+    height: 180px;
+    margin-left: 38%;
+    background-color: blueviolet;
+}
+#verification legend{
+    border-radius: 10px;
+    color: white;
+}
+#verification button{
+    color: white;
+    background-color: rgb(75, 38, 109);
+    border-radius: 30px;
+}
+.carousel-item img {
+    max-height: 500px;
+    width: 100%;
+    object-fit: cover;
+}
+
+#RowPlan button, #Plans button{
+    background-color: blueviolet;
+    color: white;
+    border-radius: 20px;
+}
+#RowPlan strong{
+    color: #000;
+}
+#Footer h3{
+    text-align: center;
+    color: blueviolet;
+}
+#choosePack{
+    text-align: center;
+}
+/* RechargePage */
+.sidebar {
+    background-color:#f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+}
+.sidebar button{
+    background-color: blueviolet;
+    color: white;
+}
+#ChangePhone #changeNumber{
+    background: blueviolet;
+}
+#ChangePhone #changeNumber button{
+    background: rgb(102, 33, 167);
+    color: white;
+}
+#dataPlan{
+    display: flex;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+#dataPlan #gb{
+    background: white;
+    color: blueviolet;
+    border-radius: 20px;
+    background-color: white;
+    width: 200px;
+}
+#dataPlan {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+#dataPlan button {
+    min-width: 100px;
+}
+.planCard {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.planDetails {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    font-weight: bold;
+}
+.planCard #Buy{
+    margin-left: 50px;
+    background-color: blueviolet;
+}
+.planCard a{
+    color: white;
+    text-decoration: none;
+}
+.planCard #viewDetails{
+    margin-left: 20px;
+    background-color: blue;
+}
+#changeNumber{
+    margin-top: 10px;
+    padding: 10px;
+    background:white;
+    border-radius: 10px;
+    max-width: fit-content;
+}
+#changeNumber button {
+    background-color: blueviolet;
+}
+
+
+/* TransactionPagr */
+h1 strong{
+    color: blueviolet;
+}
+#changePlan{
+    color: white;
+    background: blueviolet;
+    margin-left: 60px;
+}
+#changeNoClass{
+    margin-left: 100px;
+    width: 400px;
+    padding: 10px;
+    background: rgb(162, 100, 220);
+    border-radius: 20px;
+}
+#changeNoClass #phoneNumber{
+    width: 200px;
+    border-radius: 20px;
+    background-color: white;
+    color: #000;
+    margin-left: 50px;
+}
+#changeNo{
+    color: white;
+    background: blueviolet;
+    margin-right: 30px;
+}
+#planDetailsHead{
+    margin-left: 200px;
+    padding-left: 0px;
+}
+#selectedPlan span{
+    padding: 5px;
+    background: blueviolet;
+    color: white;
+}
+#FAQ{
+    margin:0 auto;
+    width: 400px;
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: rgb(208, 162, 250);
+    border-radius: 20px;
+}

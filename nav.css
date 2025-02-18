@@ -1,0 +1,89 @@
+/* Style for Top button */
+#topButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: white;
+    color: blueviolet;
+    border: none;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 12px;
+    display: none;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+#topButton:hover {
+    background-color: blueviolet;
+    color: white;
+}
+
+/* Smaller arrow size */
+#topButton span {
+    font-size: 16px; 
+}
+
+/* Styling the Navbar */
+nav {
+    position: sticky;
+    background-color: blueviolet;
+}
+
+nav a, .nav-link, strong {
+    color: white;
+}
+nav a:hover, .nav-link:hover {
+    color: rgb(58, 0, 113);
+}
+
+/* Body and Footer Styling */
+body {
+    background-color: #cde6ff;
+}
+footer {
+    padding: 10px;
+    background-color: blueviolet;
+    color: white;
+    text-align: center;
+}
+.card-body span {
+    background-color: blueviolet;
+}
+
+/* Navbar alignment */
+.navbar-nav {
+    margin-left: auto;
+}
+
+/* Search bar styles */
+.search-bar {
+    position: relative;
+    margin-left: 15px;
+}
+
+.search-bar input {
+    width: 200px;
+    padding: 5px 40px 5px 10px;
+    border-radius: 20px;
+    border: 2px solid blueviolet;
+    font-size: 14px;
+}
+
+.search-bar button {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    border: none;
+    background: none;
+    font-size: 18px;
+    color: blueviolet;
+}
+
+.search-bar button:hover {
+    color: darkviolet;
+}
+
+/* Aligning notification and account icons */
+.d-flex {
+    margin-left: auto;
+}

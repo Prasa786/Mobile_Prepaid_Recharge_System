@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="login.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="nav.css" type="text/css">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function validatePhoneNumber() {
+            const phoneNumber = document.getElementById('phoneNumber').value;
+                const regex = /^\+91\d{10}$/;
+                if (regex.test(phoneNumber)) {
+                    alert('Phone number is valid');
+                } else {
+                    alert('Please enter a valid phone number with +91 and 10 digits');
+                }
+        }
+    </script>
+</head>
+<body>
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-sm">
+       <div class="container-fluid">
+           <a class="navbar-brand" id="navbar-brand"><strong>Gio</strong></a>
+           <div class="collapse navbar-collapse" id="collapsibleNavbar">
+               <ul class="navbar-nav me-auto">
+                   <!-- Navigation links -->
+                   <li class="nav-item">
+                       <a class="nav-link" href="home.html">Home</a>
+                   </li>
+                   <li class="nav-item">
+                       <a class="nav-link" href="RechargePage.html">Recharge</a>
+                   </li>
+                   <li class="nav-item">
+                       <a class="nav-link" href="Support.html">Support</a>
+                   </li>
+               </ul>
+               <!-- Search form -->
+               <form class="d-flex">
+                   <input class="form-control me-2" type="text" placeholder="Search">
+                   <button class="btn btn-primary" type="button">Search</button>
+               </form>
+           </div>
+       </div>
+       <div class="d-flex align-items-center gap-3">
+           <div class="bg-primary rounded-circle" style="height: 32px; width: 32px;"></div>
+           <div class="bg-primary rounded-circle" style="height: 32px; width: 32px;margin-right: 5px;"></div>
+       </div>
+   </nav>
+    <div class="bg-light d-flex flex-column align-items-center justify-content-center min-vh-100" id="LogIn">
+    <div class="bg-secondary p-4 rounded-lg shadow-lg w-75 w-md-50 w-lg-25">
+        <h1 class="text-center text-dark mb-4">Welcome</h1>
+        <div class="d-flex justify-content-center mb-4">
+            <button class="btn btn-dark rounded-left">Subscriber</button>
+        </div>
+        <div class="input-group mb-4">
+            <input type="text" id="phoneNumber" class="form-control rounded-full" placeholder="+91 XXXXXXXXXX" aria-label="Phone Number">
+        </div>
+        <button class="btn btn-dark w-100 py-2 rounded-full" onclick="validatePhoneNumber()">Generate OTP</button>
+    </div>
+    <div class="d-flex flex-wrap justify-content-center mt-4">
+        <div class="bg-secondary p-4 rounded-lg shadow-lg m-2 d-flex align-items-center justify-content-center" style="width: 150px; height: 100px;">
+            <span class="text-dark font-weight-bold">Why Us?</span>
+        </div>
+        <div class="bg-secondary p-4 rounded-lg shadow-lg m-2 d-flex align-items-center justify-content-center" style="width: 150px; height: 100px;">
+            <span class="text-dark font-weight-bold">Our Services</span>
+        </div>
+        <div class="bg-secondary p-4 rounded-lg shadow-lg m-2 d-flex align-items-center justify-content-center" style="width: 150px; height: 100px;">
+            <span class="text-dark font-weight-bold">Top Plan</span>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+nav {
+    background-color: blueviolet;
+}
+nav a, .nav-link,  strong{
+    color: white;
+}
+nav a:hover, .nav-link:hover {
+    color: rgb(58, 0, 113);
+}
+body {
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.rounded-full {
+    border-radius: 50px;
+}
+
+.bg-secondary {
+    background-color: #6c757d;
+}
+
+.text-dark {
+    color: #343a40;
+}
+
+.w-75 {
+    width: 75%;
+}
+
+.w-md-50 {
+    width: 50%;
+}
+
+.w-lg-25 {
+    width: 25%;
+}
+
+.p-4 {
+    padding: 1.5rem;
+}
+
+.rounded-lg {
+    border-radius: 0.5rem;
+}
+
+.shadow-lg {
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.min-vh-100 {
+    min-height: 100vh;
+}
+
+.m-2 {
+    margin: 0.5rem;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.py-2 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.font-weight-bold {
+    font-weight: 700;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+#login{
+    padding: auto;
+}
