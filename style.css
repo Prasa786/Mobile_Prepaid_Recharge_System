@@ -1,61 +1,98 @@
-
-/* home */
-fieldset{
+fieldset {
     padding: 10px;
     border-radius: 20px;
+    border: 1px solid #ccc;
 }
-#verification{
-    display: inline-block;
-    width: 300px;
-    height: 180px;
-    margin-left: 38%;
-    background-color: blueviolet;
+
+#verification {
+    display: block;
+    width: 90%; 
+    max-width: 300px;
+    height: auto;
+    margin: 20px auto;
+    background-color: #65bef5;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
 }
-#verification legend{
+
+#verification legend {
     border-radius: 10px;
     color: white;
+    font-size: 1.2em;
+    padding: 0 10px;
 }
-#verification button{
+
+#verification #phoneNumber{
+    width: 100%;
+    padding: 10px;
+    border-radius:20px ;
+    border-color: #65bef5;
+}
+#verification button {
     color: white;
-    background-color: rgb(75, 38, 109);
+    background-color: rgb(22, 114, 189);
     border-radius: 30px;
+    border-color: rgb(22, 114, 189);
+    padding: 10px 20px; 
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;}
+    
+#verification button a{
+    color: white;
+    text-decoration: none;
 }
+
+#verification button:hover {
+    background-color: #0c537f;
+}
+
 .carousel-item img {
     max-height: 500px;
     width: 100%;
     object-fit: cover;
 }
 
-#RowPlan button, #Plans button{
-    background-color: blueviolet;
+#RowPlan button, #Plans button {
+    background-color: #65bef5;
     color: white;
     border-radius: 20px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer; 
 }
-#RowPlan strong{
+
+#RowPlan strong {
     color: #000;
 }
-#Footer h3{
+
+#choosePack {
     text-align: center;
-    color: blueviolet;
+    margin: 20px 0; 
 }
-#choosePack{
-    text-align: center;
-}
+
+
 /* RechargePage */
 .sidebar {
     background-color:#f8f9fa;
-    padding: 20px;
+    padding: 10px;
     border-radius: 10px;
 }
 .sidebar button{
-    background-color: blueviolet;
+    background-color: #65bef5;
+    color: white;
+}
+
+.sidebar button:hover{
+    background-color: #3995ce;
     color: white;
 }
 #ChangePhone #changeNumber{
-    background: blueviolet;
+    background: #65bef5;
 }
 #ChangePhone #changeNumber button{
-    background: rgb(102, 33, 167);
+    background: #65bef5;
     color: white;
 }
 #dataPlan{
@@ -65,10 +102,14 @@ fieldset{
 }
 #dataPlan #gb{
     background: white;
-    color: blueviolet;
+    color: black;
     border-radius: 20px;
     background-color: white;
     width: 200px;
+}
+#dataPlan #gb:hover{
+    background: #65bef5;
+    color: white;
 }
 #dataPlan {
     display: flex;
@@ -96,16 +137,13 @@ fieldset{
 }
 .planCard #Buy{
     margin-left: 50px;
-    background-color: blueviolet;
+    background-color:#3f9fdb;
 }
 .planCard a{
     color: white;
     text-decoration: none;
 }
-.planCard #viewDetails{
-    margin-left: 20px;
-    background-color: blue;
-}
+
 #changeNumber{
     margin-top: 10px;
     padding: 10px;
@@ -114,24 +152,22 @@ fieldset{
     max-width: fit-content;
 }
 #changeNumber button {
-    background-color: blueviolet;
+    background-color:#3f9fdb;
 }
-
-
-/* TransactionPagr */
+/* Transaction */
 h1 strong{
-    color: blueviolet;
+    color: #65bef5;
 }
 #changePlan{
     color: white;
-    background: blueviolet;
+    background: #65bef5;
     margin-left: 60px;
 }
 #changeNoClass{
     margin-left: 100px;
     width: 400px;
     padding: 10px;
-    background: rgb(162, 100, 220);
+    background: rgb(162, 210, 250);
     border-radius: 20px;
 }
 #changeNoClass #phoneNumber{
@@ -143,7 +179,7 @@ h1 strong{
 }
 #changeNo{
     color: white;
-    background: blueviolet;
+    background: #65bef5;
     margin-right: 30px;
 }
 #planDetailsHead{
@@ -152,7 +188,7 @@ h1 strong{
 }
 #selectedPlan span{
     padding: 5px;
-    background: blueviolet;
+    background: #65bef5;
     color: white;
 }
 #FAQ{
@@ -161,6 +197,6 @@ h1 strong{
     padding: 10px;
     padding-left: 15px;
     padding-right: 15px;
-    background-color: rgb(208, 162, 250);
+    background-color: rgb(162, 210, 250);
     border-radius: 20px;
 }

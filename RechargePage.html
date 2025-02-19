@@ -11,118 +11,40 @@
     <script src="script.js" defer></script>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const planList = document.getElementById("planList");
-            const priceFilter = document.getElementById("priceFilter");
-            const planButtons = document.querySelectorAll(".plan-filter");
-            const dataPlanButtons = document.querySelectorAll("#dataPlan button");
-            
-            const plans = [
-                { price: 299, validity: "28 Days", data: "1.5GB/Day", type: "popular" },
-                { price: 399, validity: "90 Days", data: "2.5GB/Day", type: "data" },
-                { price: 749, validity: "72 Days", data: "2GB/Day", type: "unlimited" },
-                { price: 1029, validity: "84 Days", data: "2GB/Day", type: "long" },
-                { price: 3599, validity: "365 Days", data: "2.5GB/Day", type: "long" }
-            ];
-
-            function renderPlans(filterPrice = null, planType = null, dataFilter = null) {
-                planList.innerHTML = "";
-                
-                let filteredPlans = plans;
-
-                if (filterPrice) {
-                    filteredPlans = filteredPlans.filter(plan => plan.price <= filterPrice);
-                }
-
-                if (planType) {
-                    filteredPlans = filteredPlans.filter(plan => plan.type === planType);
-                }
-
-                if (dataFilter) {
-                    filteredPlans = filteredPlans.filter(plan => plan.data.includes(dataFilter));
-                }
-
-                filteredPlans.forEach(plan => {
-                    const planCard = document.createElement("div");
-                    planCard.classList.add("planCard");
-                    planCard.innerHTML = `
-                        <div class="planDetails"><span>Price: ₹${plan.price}</span></div>
-                        <div class="planDetails"><span>Validity: ${plan.validity}</span></div>
-                        <div class="planDetails"><span>Data: ${plan.data}</span></div>
-                        <button class="btn" style="background-color: blueviolet; color: white;">
-                            <a href="Transaction.html" style="color: white; text-decoration: none;">Buy</a>
-                        </button>
-                    `;
-                    planList.appendChild(planCard);
-                });
-            }
-
-            priceFilter.addEventListener("change", function () {
-                const selectedPrice = parseInt(priceFilter.value);
-                renderPlans(selectedPrice);
-            });
-
-            planButtons.forEach(button => {
-                button.addEventListener("click", function () {
-                    const selectedPlan = this.getAttribute("data-plan");
-                    renderPlans(null, selectedPlan);
-                });
-            });
-
-            dataPlanButtons.forEach(button => {
-                button.addEventListener("click", function () {
-                    const dataFilter = this.innerText.trim();
-                    renderPlans(null, null, dataFilter);
-                });
-            });
-
-            renderPlans();
-        });
-    </script>
 </head>
 <body>
-   <!-- Sticky Navigation bar -->
-   <nav class="navbar navbar-expand-sm sticky-top">
-    <div class="container-fluid">
-        <a class="navbar-brand" id="navbar-brand"><strong>Mobi</strong></a>
-        <div class="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="home.html">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="RechargePage.html">Recharge</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Support.html">Support</a>
-                </li>
-            </ul>
+    <nav class="navbar navbar-expand-sm sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" id="navbar-brand"><strong>Mobi</strong></a>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="RechargePage.html">Recharge</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Support.html">Support</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <a href="login.html" class="material-icons">
+                    account_circle
+                </a>
+            </div>
         </div>
-        <!-- Search Bar -->
-        <div class="search-bar d-flex align-items-center">
-            <input type="text" placeholder="Search..." id="search">
-            <button type="button">
-                <span class="material-icons">search</span>
-            </button>
-        </div>
-        <!-- Icons for Notification and Account -->
-        <div class="d-flex align-items-center gap-3">
-            <span class="material-icons" style="color: white;">notifications</span>
-            <span class="material-icons" style="color: white;">account_circle</span>
-        </div>
-    </div>
-</nav>
-
+    </nav>
     <div class="container">
         <div class="row mt-4">
-            <!-- Sidebar -->
+            <!--Sidebar-->
             <div class="col-md-3">
                 <div class="sidebar">
                     <div class="d-flex" id="changeNumber">
-                        <input type="text" class="form-control me-2" placeholder="+91 XXXXXXXXXX" disabled>
+                        <input type="text" class="form-control me-2" id="phoneNumber" placeholder="1234567789" disabled>
                         <button class="btn edit-btn">
-                            <span class="material-icons" style="color: white;">edit</span>
+                            <span class="material-icons"><a style="color: white;text-decoration: none;" href="home.html">edit</a></span>
                         </button>
                     </div>
                     <br>
@@ -132,10 +54,15 @@
                         <label for="priceFilter" class="form-label">Filter by Price</label>
                         <select class="form-select" id="priceFilter">
                             <option selected>Choose...</option>
+                            <option value="159">₹159</option>
+                            <option value="199">₹199</option>
                             <option value="299">₹299</option>
                             <option value="399">₹399</option>
                             <option value="749">₹749</option>
+                            <option value="899">₹899</option>
                             <option value="1029">₹1029</option>
+                            <option value="1299">₹1299</option>
+                            <option value="2599">₹2599</option>
                             <option value="3599">₹3599</option>
                         </select>
                     </div>
@@ -145,26 +72,27 @@
                     <button class="btn  w-100 my-2 plan-filter" data-plan="long">Long Validity</button>
                 </div>
             </div><br>
-            <!-- Plan List -->
+            <!--Plan List-->
             <div class="col-md-9">
                 <div id="dataPlan">
-                    <button class="btn btn-secondary" id="gb">1.5GB/Day</button>
-                    <button class="btn btn-secondary" id="gb">2.5GB/Day</button>
-                    <button class="btn btn-secondary" id="gb">3GB/Day</button>
-                    <button class="btn btn-secondary" id="gb">True 5G</button>
-                    <button class="btn btn-secondary" id="gb">120GB</button>
-                    <button class="btn btn-secondary" id="gb">200GB</button>
-                    <button class="btn btn-secondary" id="gb">Unlimited</button>
+                    <button class="btn " id="gb">1.5GB/Day</button>
+                    <button class="btn " id="gb">2.5GB/Day</button>
+                    <button class="btn " id="gb">3GB/Day</button>
+                    <button class="btn " id="gb">10GB/Day</button>
+                    <button class="btn " id="gb">120GB</button>
+                    <button class="btn " id="gb">200GB</button>
+                    <button class="btn " id="gb">Unlimited</button>
                 </div>
                 <div id="planList" class="d-grid gap-3">
-                     <!-- Plans will be dynamically injected here -->
+
                 </div>
             </div>
         </div>
     </div>
-<br>
+    <br>
     <footer>
         <p>&copy;2025 Mobicom. All Rights Reserved</p>
     </footer>
 </body>
+<script src="top.js"></script>
 </html>

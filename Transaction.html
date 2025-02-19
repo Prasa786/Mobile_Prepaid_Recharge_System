@@ -1,79 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Your Transaction</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="style.css" type="text/css">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-        <link rel="stylesheet" href="nav.css" type="text/css">
-        <!-- Google Fonts -->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <script>
-            // Function to select a plan and store it in localStorage
-            function selectPlan(price, validity, data, totalData) {
-                localStorage.setItem("selectedPlan", JSON.stringify({ price, validity, data, totalData }));
-                window.location.href = "#"; // Stay on the same page (no redirection)
-                updatePlanDetails();
-            }
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Transaction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="nav.css" type="text/css">
+    <link rel="stylesheet" href="Transcation.css" type="text/css">
 
-            // Update plan details from localStorage
-            function updatePlanDetails() {
-                const plan = JSON.parse(localStorage.getItem("selectedPlan"));
-                if (plan) {
-                    document.getElementById("price").innerText = `Rs ${plan.price}`;
-                    document.getElementById("validity").innerText = plan.validity;
-                    document.getElementById("data").innerText = plan.data;
-                    document.getElementById("totalData").innerText = plan.totalData;
-                }
-            }
-
-            // Payment method change handler
-            document.addEventListener("DOMContentLoaded", function () {
-                // Update the plan details when the page is loaded
-                updatePlanDetails();
-
-                document.getElementById("paymentMethod").addEventListener("change", function () {
-                    const selectedMethod = this.value;
-                    const bankField = document.getElementById("bankField");
-                    const upiField = document.getElementById("upiField");
-                    const cardField = document.getElementById("cardField");
-                    const walletField = document.getElementById("walletField");
-
-                    // Show respective fields based on the selected payment method
-                    if (selectedMethod === "netbanking") {
-                        bankField.style.display = "block";
-                        upiField.style.display = "none";
-                        cardField.style.display = "none";
-                        walletField.style.display = "none";
-                    } else if (selectedMethod === "upi") {
-                        upiField.style.display = "block";
-                        bankField.style.display = "none";
-                        cardField.style.display = "none";
-                        walletField.style.display = "none";
-                    } else if (selectedMethod === "credit_debit") {
-                        cardField.style.display = "block";
-                        bankField.style.display = "none";
-                        upiField.style.display = "none";
-                        walletField.style.display = "none";
-                    } else if (selectedMethod === "wallet") {
-                        walletField.style.display = "block";
-                        bankField.style.display = "none";
-                        upiField.style.display = "none";
-                        cardField.style.display = "none";
-                    } else {
-                        bankField.style.display = "none";
-                        upiField.style.display = "none";
-                        cardField.style.display = "none";
-                        walletField.style.display = "none";
-                    }
-                });
-            });
-        </script>
-    </head>
-    <body>
-        <!-- Sticky Navigation bar -->
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="script.js" defer></script>
+    <style>
+        
+    </style>
+</head>
+<body>
     <nav class="navbar navbar-expand-sm sticky-top">
         <div class="container-fluid">
             <a class="navbar-brand" id="navbar-brand"><strong>Mobi</strong></a>
@@ -90,101 +34,108 @@
                     </li>
                 </ul>
             </div>
-            <!-- Search Bar -->
-            <div class="search-bar d-flex align-items-center">
-                <input type="text" placeholder="Search..." id="search">
-                <button type="button">
-                    <span class="material-icons">search</span>
-                </button>
-            </div>
-            <!-- Icons for Notification and Account -->
             <div class="d-flex align-items-center gap-3">
-                <span class="material-icons" style="color: white;">notifications</span>
-                <span class="material-icons" style="color: white;">account_circle</span>
+                <a href="login.html" class="material-icons">
+                    account_circle
+                </a>
             </div>
         </div>
     </nav>
-        
-        <h1 class="b" id="planDetailsHead">Plan Details</h1>
-        <div class="row justify-content-center g-5" id="selectedPlan">
-            <div class="col-md-3 w-40">
-                <div class="card p-3 h-100">
-                    <table class="table table-bordered">
-                        <br>
-                        <span class="badge text-white mb-2">Current Plan</span>
-                        <tr><td>Price</td><td id="price">Rs 399</td></tr>
-                        <tr><td>Validity</td><td id="validity">200 Days</td></tr>
-                        <tr><td>Daily Data</td><td id="data">1.5 GB/Day</td></tr>
-                        <tr><td>Total Data</td><td id="totalData">300 GB</td></tr>
-                    </table>
-                    <button class="btn btn-dark w-50 align-items-center" id="changePlan"><a href="RechargePage.html" style="color: white;text-decoration: none;">Change Plan</a></button>
+    <br>
+    <div class="row justify-content-center g-4" id="selectedPlan">
+        <div class="col-md-3 w-40">
+            <div class="card p-3 h-80">
+                <div class="d-flex" id="changeNumber">
+                    <input type="text" class="form-control me-2" id="phoneNumber" placeholder="1234567789" disabled>
+                    <button class="btn edit-btn">
+                        <span class="material-icons"><a style="color: white;text-decoration: none;" href="home.html">edit</a></span>
+                    </button>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card p-3 text-center">
-                    <div class="d-flex justify-content-between align-items-center " id="changeNoClass">
-                        <div id="phoneNumber">+91 XXXXXXXXXXX</div>
-                        <button class="btn" id="changeNo">Change</button>
-                    </div>
-                    <h2 class="mb-3">Pay Using</h2>
-                    <select class="form-select" id="paymentMethod">
-                        <option value="">Select Payment Method</option>
-                        <option value="upi">UPI</option>
-                        <option value="credit_debit">Credit / Debit</option>
-                        <option value="wallet">Wallet</option>
-                        <option value="netbanking">Net Banking</option>
-                    </select>
-
-                    <!-- Bank List (only shows if Net Banking is selected) -->
-                    <div id="bankField" style="display: none; margin-top: 15px;">
-                        <label for="bankSelect">Choose your Bank:</label>
-                        <select class="form-select" id="bankSelect">
-                            <option value="">Select Bank</option>
-                            <option value="bank1">Bank 1</option>
-                            <option value="bank2">Bank 2</option>
-                            <option value="bank3">Bank 3</option>
-                        </select>
-                    </div>
-
-                    <!-- UPI App List (only shows if UPI is selected) -->
-                    <div id="upiField" style="display: none; margin-top: 15px;">
-                        <label for="upiSelect">Select Your UPI App:</label>
-                        <select class="form-select" id="upiSelect">
-                            <option value="">Selct UPI APP</option>
-                            <option value="upi1">UPI App 1</option>
-                            <option value="upi2">UPI App 2</option>
-                            <option value="upi3">UPI App 3</option>
-                        </select>
-                    </div>
-
-                    <!-- Debit/Credit Card (only shows if Credit/Debit is selected) -->
-                    <div id="cardField" style="display: none; margin-top: 15px;">
-                        <label for="cardNumber">Card Number:</label>
-                        <input type="text" class="form-control" id="cardNumber" placeholder="Enter your card number">
-                        <label for="expiryDate" class="mt-2">Expiry Date:</label>
-                        <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY">
-                        <label for="cvv" class="mt-2">CVV:</label>
-                        <input type="text" class="form-control" id="cvv" placeholder="Enter CVV">
-                    </div>
-
-                    <!-- Wallet (only shows if Wallet is selected) -->
-                    <div id="walletField" style="display: none; margin-top: 15px;">
-                        <label for="walletSelect">Select Your Wallet:</label>
-                        <select class="form-select" id="walletSelect">
-                            <option value="">Select Wallet</option>
-                            <option value="wallet1">Wallet 1</option>
-                            <option value="wallet2">Wallet 2</option>
-                            <option value="wallet3">Wallet 3</option>
-                        </select>
-                    </div>
-
-                    <button class="btn btn-success mt-4" style="background-color: blueviolet;">Proceed to Pay</button>
-                </div>
+                <table class="table table-bordered plan-table">
+                    <br>
+                    <h3 class="b" id="planDetailsHead" style="margin-left: 40px;">Plan Details</h3>
+                    <span class="badge text-white mb-2">Current Plan</span>
+                    <tr><td class="payment-header">Price</td><td id="price">Rs 399</td></tr>
+                    <tr><td class="payment-header">Validity</td><td id="validity">200 Days</td></tr>
+                    <tr><td class="payment-header">Daily Data</td><td id="data">1.5 GB/Day</td></tr>
+                    <tr><td class="payment-header">Total Data</td><td id="totalData">300 GB</td></tr>
+                </table>
+                <button class="btn btn-dark w-50 align-items-center" id="changePlan"><a href="RechargePage.html" style="color: white;text-decoration: none;">Change Plan</a></button>
             </div>
         </div>
+        <div class="col-md-6">
+            <div class="card p-3 text-center">
+                
+                <h2 class="mb-3">Pay Using</h2>
 
-        <footer style="margin-top: 100px;">
-            <P>&copy;2025 Mobicom. All Rights Reserved</P>
-        </footer>
-    </body>
+                <!--UPI-->
+                <div class="mb-3">
+                    <h5 class="text-start">UPI</h5>
+                    <select class="form-select" id="upiSelect" onchange="showUpiOptions()">
+                        <option value="">Select Your UPI App</option>
+                        <option value="gpay">Google Pay</option>
+                        <option value="phonepay">PhonePe</option>
+                        <option value="paytm">Paytm</option>
+                    </select>
+                    <br>
+                    <div id="upiOptions" style="display: none;">
+                        <p>Selected UPI App: <span id="selectedUpi"></span></p>
+                    </div>
+                </div>
+
+                <!--Credit/Debit-->
+                <div class="mb-3">
+                    <h5 class="text-start">Credit / Debit Card</h5>
+                    <select class="form-select" id="cardSelect" onchange="showCardFields()">
+                        <option value="">Select Credit/Debit Card</option>
+                        <option value="credit_debit">Credit / Debit Card</option>
+                    </select>
+                    <div id="cardFields" style="display: none;">
+                        <input type="text" class="form-control mt-2" id="cardNumber" placeholder="Enter your card number">
+                        <input type="text" class="form-control mt-2" id="expiryDate" placeholder="MM/YY">
+                        <input type="text" class="form-control mt-2" id="cvv" placeholder="Enter CVV">
+                    </div>
+                </div>
+
+                <!--Net Banking-->
+                <div class="mb-3">
+                    <h5 class="text-start">Net Banking</h5>
+                    <select class="form-select" id="bankSelect" onchange="showBankOptions()">
+                        <option value="">Select Your Bank</option>
+                        <option value="sbi">SBI</option>
+                        <option value="icici">ICICI</option>
+                        <option value="axis">Axis Bank</option>
+                    </select>
+                    <br>
+                    <div id="bankOptions" style="display: none;">
+                        <p>Selected Bank: <span id="selectedBank"></span></p>
+                    </div>
+                </div>
+                <!--Wallet-->
+                <div class="mb-3">
+                    <h5 class="text-start">Wallet</h5>
+                    <select class="form-select" id="walletSelect" onchange="showWalletOptions()">
+                        <option value="">Select Your Wallet</option>
+                        <option value="amazonpay">Amazon Pay</option>
+                        <option value="mobikwik">MobiKwik</option>
+                    </select>
+                    <br>
+                    <div id="walletOptions" style="display: none;">
+                        <p>Selected Wallet: <span id="selectedWallet"></span></p>
+                    </div>
+                </div>
+
+                <button class="btn btn-success mt-4" style="background-color: #42b4fa;border-color: #42b4fa;">Proceed to Pay</button>
+            </div>
+        </div>
+    </div>
+
+    <footer style="margin-top: 100px;">
+        <p>&copy;2025 Mobicom. All Rights Reserved</p>
+    </footer>
+
+    <script src="Transaction.js"></script>
+    <script src="validation.js" defer></script>
+
+</body>
 </html>
