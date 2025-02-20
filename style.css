@@ -1,48 +1,42 @@
-fieldset {
+/* fieldset {
     padding: 10px;
-    border-radius: 20px;
     border: 1px solid #ccc;
-}
+} */
 
 #verification {
-    display: block;
-    width: 90%; 
-    max-width: 300px;
-    height: auto;
-    margin: 20px auto;
+    width: fit-content;
+    margin: 0 auto;
     background-color: #65bef5;
+    border-radius: 20px;
     padding: 20px;
-    box-sizing: border-box;
     text-align: center;
+    height: auto;
 }
 
 #verification legend {
-    border-radius: 10px;
     color: white;
     font-size: 1.2em;
-    padding: 0 10px;
+    padding: 5px;
 }
 
-#verification #phoneNumber{
+#phoneNumber{
     width: 100%;
-    padding: 10px;
-    border-radius:20px ;
-    border-color: #65bef5;
+    padding:10px;
+    border-radius:10px ;
+    border-color:white;
 }
 #verification button {
     color: white;
     background-color: rgb(22, 114, 189);
     border-radius: 30px;
     border-color: rgb(22, 114, 189);
-    padding: 10px 20px; 
+    padding: 10px; 
     cursor: pointer;
     width: 100%;
-    margin-top: 10px;}
-    
-#verification button a{
-    color: white;
-    text-decoration: none;
+    margin-top: 20px;
+    margin-bottom: 0%;
 }
+
 
 #verification button:hover {
     background-color: #0c537f;
@@ -79,69 +73,23 @@ fieldset {
     padding: 10px;
     border-radius: 10px;
 }
-.sidebar button{
+
+.btn {
     background-color: #65bef5;
     color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
 }
+.btn.selected {
+    background-color: #02468e;
+    color: white;
+}
+
 
 .sidebar button:hover{
-    background-color: #3995ce;
+    background-color: #02468e;
     color: white;
-}
-#ChangePhone #changeNumber{
-    background: #65bef5;
-}
-#ChangePhone #changeNumber button{
-    background: #65bef5;
-    color: white;
-}
-#dataPlan{
-    display: flex;
-    gap: 30px;
-    margin-bottom: 20px;
-}
-#dataPlan #gb{
-    background: white;
-    color: black;
-    border-radius: 20px;
-    background-color: white;
-    width: 200px;
-}
-#dataPlan #gb:hover{
-    background: #65bef5;
-    color: white;
-}
-#dataPlan {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-}
-
-#dataPlan button {
-    min-width: 100px;
-}
-.planCard {
-    background-color: #f8f9fa;
-    padding: 20px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.planDetails {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    font-weight: bold;
-}
-.planCard #Buy{
-    margin-left: 50px;
-    background-color:#3f9fdb;
-}
-.planCard a{
-    color: white;
-    text-decoration: none;
 }
 
 #changeNumber{
@@ -153,7 +101,59 @@ fieldset {
 }
 #changeNumber button {
     background-color:#3f9fdb;
+    color: white;
+    border-color: white;
 }
+
+#dataPlan{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+#dataPlan .btn{
+    background: white;
+    color: black;
+    border-radius: 20px;
+    background-color: white;
+    width: 200px;
+    cursor: pointer;
+}
+
+#dataPlan .btn:hover{
+    background: #65bef5;
+    color: white;
+}
+#dataPlan .btn.selected {
+    background-color: #65bef5; 
+    color: white;
+}
+
+.planCard {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.planCard #Buy{
+    margin-left: 50px;
+    background-color:#3f9fdb;
+}
+.planCard a{
+    color: white;
+    text-decoration: none;
+}
+.planDetails {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    font-weight: bold;
+}
+
 /* Transaction */
 h1 strong{
     color: #65bef5;
@@ -193,10 +193,11 @@ h1 strong{
 }
 #FAQ{
     margin:0 auto;
-    width: 400px;
+    width: fit-content;
     padding: 10px;
-    padding-left: 15px;
-    padding-right: 15px;
     background-color: rgb(162, 210, 250);
-    border-radius: 20px;
+    border-radius: 30px;
+}
+#FAQ input{
+    border-radius: 30px;
 }

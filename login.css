@@ -2,7 +2,7 @@
     background-color: #2b90e2;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px;
     padding: 10px;
     cursor: pointer; 
 }
@@ -15,7 +15,7 @@
     background-color: #2b90e2; 
     color: white; 
     border: none; 
-    border-radius: 5px;
+    border-radius: 20px;
     padding: 10px;
     cursor: pointer;
     width: fit-content; 

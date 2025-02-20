@@ -34,9 +34,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const phoneNumberInput = document.getElementById('phoneNumber');
     const storedPhoneNumber = localStorage.getItem('phoneNumber');
     if (storedPhoneNumber) {
-        phoneNumberInput.value = storedPhoneNumber; // Set the input value
+        phoneNumberInput.value = storedPhoneNumber;
     }
 });
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
     const planList = document.getElementById("planList");
@@ -83,10 +85,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="planDetails"><span>Price: ₹${plan.price}</span></div>
                 <div class="planDetails"><span>Validity: ${plan.validity}</span></div>
                 <div class="planDetails"><span>Data: ${plan.data}</span></div>
-                <button class="btn" style="background-color: #65bef5; color: white;">
-                    <a href="Transaction.html" style="color: white; text-decoration: none;">Buy</a>
+                <button class="btn" style="background-color: #65bef5; color: white;" onclick="location.href='Transaction.html';">
+                Buy
                 </button>
-            `;
+                `;
             planList.appendChild(planCard);
         });
     }
@@ -111,4 +113,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     renderPlans();
+});
+
+
+document.querySelectorAll('.btn').forEach(button => {
+    button.addEventListener('click', function() {
+        document.querySelectorAll('.btn').forEach(btn => btn.classList.remove('selected'));
+
+        this.classList.add('selected');
+    });
 });

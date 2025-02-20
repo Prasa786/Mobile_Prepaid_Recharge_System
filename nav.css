@@ -20,6 +20,7 @@
 #topButton span {
     font-size: 16px; 
 }
+
 nav {
     position: sticky;
     background-color: #6096ba;
@@ -34,8 +35,12 @@ nav a:hover, .nav-link:hover {
     color: #0667a3;
 }
 
+.navbar-nav {
+    margin-left: auto;
+}
+
 body {
-    background-color: #cde6ff;
+    background-color: white;
 }
 
 footer {
@@ -43,16 +48,25 @@ footer {
     background-color: rgb(134, 171, 194);
     color: white;
     text-align: center;
+    text-decoration: none;
 }
 
+footer a{
+    text-decoration: none;
+}
+
+footer svg{
+    text-align: center;
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+}
 .card-body span {
     background-color: #65bef5;
 }
 
-.navbar-nav {
-    margin-left: auto;
-}
 
 .d-flex {
+    margin-top: 2px;
     margin-left: auto;
 }
