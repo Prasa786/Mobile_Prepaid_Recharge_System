@@ -13,9 +13,6 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="script.js" defer></script>
-    <style>
-        
-    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-sm sticky-top">
@@ -45,13 +42,20 @@
     <div class="row justify-content-center g-4" id="selectedPlan">
         <div class="col-md-3 w-40">
             <div class="card p-3 h-80 shadow">
-                <div class="d-flex" id="changeNumber">
-                    <input type="text" class="form-control me-2" id="phoneNumber" placeholder="1234567789" disabled>
-                    <button class="btn edit-btn text-white material-icons" onclick="location.href='home.html';">
-                        edit
-                    </button>
-                </div>
                 <table class="table table-bordered plan-table">
+                    <div class="d-flex align-items-center shadow" id="">
+                        <p><span id="phone-number-display">+91 XXXXXXXXXX</span><p>
+                        <button id="edit-button" class="btn material-icons">edit</button>
+                
+                        <div id="popup" class="popup">
+                            <div class="popup-content">
+                                <span class="close" id="close-popup">&times;</span>
+                                <h2>Edit Phone Number</h2>
+                                <input type="text" id="edit-phone-number" placeholder="Enter new phone number">
+                                <button id="save-button" class="btn btn-success">Save</button>
+                            </div>
+                        </div>
+                    </div>
                     <br>
                     <h3 class="b" id="planDetailsHead" style="margin-left: 40px;">Plan Details</h3>
                     <span class="badge text-white mb-2">Current Plan</span>
@@ -209,6 +213,7 @@
     
     </footer>
     <script src="Transaction.js"></script>
+    <script src="Script.js"></script>
     <script src="validation.js" defer></script>
 
 </body>

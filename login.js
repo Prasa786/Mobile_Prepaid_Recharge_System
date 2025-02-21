@@ -17,7 +17,7 @@ document.getElementById("genOtp").addEventListener("click", function () {
 document.getElementById("verify").addEventListener("click", function () {
     let otp = document.getElementById("otp").value;
     if (otp) {
-        window.location.href = "dashboard.html";
+        window.location.href = "UserAccount.html";
     } else {
         alert("Please enter a valid OTP.");
     }
