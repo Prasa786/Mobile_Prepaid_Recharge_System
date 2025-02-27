@@ -1,3 +1,55 @@
+
+ .testimonial-container {
+    background-color: #6096ba;
+    padding: 40px 20px;
+    text-align: center;
+    border-radius: 10px;
+    position: relative;
+  }
+  
+  
+  .testimonial-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px 0;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+ 
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-10%);
+    background: none;
+    border: none;
+    font-size: 30px;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    font-weight: bold;
+    padding: 10px;
+  }
+  
+ 
+  .prev {
+    left: -8px;
+  }
+  
+  .next {
+    right: -8px;
+  }
+  
+ 
+  @media (max-width: 768px) {
+    .carousel-btn {
+      font-size: 20px;
+    }
+  }
+
 #verification {
     width: fit-content;
     margin: 0 auto;
@@ -61,7 +113,7 @@
 }
 
 
-/* RechargePage */
+
 .sidebar {
     background-color:#f8f9fa;
     padding: 10px;
@@ -147,52 +199,4 @@
     width: 100%;
     justify-content: space-between;
     font-weight: bold;
-}
-
-/* Transaction */
-h1 strong{
-    color: #65bef5;
-}
-#changePlan{
-    color: white;
-    background: #65bef5;
-    margin-left: 60px;
-}
-#changeNoClass{
-    margin-left: 100px;
-    width: 400px;
-    padding: 10px;
-    background: rgb(162, 210, 250);
-    border-radius: 20px;
-}
-#changeNoClass #phoneNumber{
-    width: 200px;
-    border-radius: 20px;
-    background-color: white;
-    color: #000;
-    margin-left: 50px;
-}
-#changeNo{
-    color: white;
-    background: #65bef5;
-    margin-right: 30px;
-}
-#planDetailsHead{
-    margin-left: 200px;
-    padding-left: 0px;
-}
-#selectedPlan span{
-    padding: 5px;
-    background: #65bef5;
-    color: white;
-}
-#FAQ{
-    margin:0 auto;
-    width: fit-content;
-    padding: 10px;
-    background-color: rgb(162, 210, 250);
-    border-radius: 30px;
-}
-#FAQ input{
-    border-radius: 30px;
 }

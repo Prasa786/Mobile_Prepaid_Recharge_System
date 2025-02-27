@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/admin/css/adminstyles.css">
+    <link rel="stylesheet" href="/admin/css/notifications.css">
+</head>
+
+<body>
+    <div class="sidebar">
+        <h3 class="sidebar-title">MobiCom</h3>
+        <ul class="sidebar-nav">
+            <li><a href="/admin/html/dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li><a href="/admin/html/subscribers.html"><i class="fas fa-users"></i> Subscribers</a></li>
+            <li><a href="/admin/html/transactionHistory.html"><i class="fas fa-history"></i> Transaction History</a></li>
+            <li><a href="/admin/html/plans.html"><i class="fas fa-list"></i> Plans</a></li>
+            <li class="active"><a href="/admin/html/notifications.html"><i class="fas fa-bell"></i> Notifications</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <nav class="navbar">
+            <div class="navbar-left">
+                <button class="sidebar-toggle"><i class="fas fa-bars"></i></button>
+                <h2>Notifications</h2>
+            </div>
+
+            <div class="navbar-right">
+                <div class="avatar-dropdown">
+                    <img src="/admin/Images/profile.jpeg" alt="Avatar" class="avatar">
+                    <div class="dropdown-content">
+                        <a href="/admin/html/profile.html">Profile</a>
+                        <a href="/admin/html/index.html">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="table-container">
+            <h4>Send Notification</h4>
+            <form id="notificationForm">
+                <div class="form-group">
+                    <label for="subscriberSelect">Subscriber</label>
+                    <input type="text" id="subscriberSelect" class="form-control" placeholder="Select User">
+                    <span id="subscriberFeedback" class="text-danger d-none">Please enter a valid subscriber.</span>
+                </div>
+                <div class="form-group">
+                    <label for="messageContent">Message Content</label>
+                    <textarea id="messageContent" class="form-control" placeholder="Message"></textarea>
+                    <span id="messageFeedback" class="text-danger d-none">Please enter a message of at least 10 characters.</span>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Notification</button>
+            </form>
+        </div>
+
+        <div class="table-container">
+            <h4>Notification History</h4>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover" id="notificationHistoryTable">
+                    <thead>
+                        <tr>
+                            <th>Notification ID</th>
+                            <th>Subscriber Name</th>
+                            <th>Mobile Number</th>
+                            <th>Message</th>
+                            <th>Date Sent</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="notificationHistoryList">
+                        <tr>
+                            <td>1</td>
+                            <td>Tony Stark</td>
+                            <td>+91 9876543212</td>
+                            <td>Your plan expires soon!</td>
+                            <td>15-Feb-2025</td>
+                            <td><span class="badge bg-success">Sent</span></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Steve Rogers</td>
+                            <td>+91 9876543213</td>
+                            <td>Recharge now & get 10% off</td>
+                            <td>13-Feb-2025</td>
+                            <td><span class="badge bg-success">Sent</span></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/admin/js/adminscript.js"></script>
+    <script src="/admin/js/notifications.js"></script>
+</body>
+</html>

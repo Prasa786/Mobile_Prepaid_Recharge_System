@@ -5,32 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    
-    <link rel="stylesheet" href="style.css" type="text/css">
-    <link rel="stylesheet" href="nav.css" type="text/css">
-    <link rel="stylesheet" href="login.css" type="text/css">
-    <!-- Google Fonts -->
+    <link rel="stylesheet" href="/user/css/style.css" type="text/css">
+    <link rel="stylesheet" href="/user/css/nav.css" type="text/css">
+    <link rel="stylesheet" href="/user/css/login.css" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <style>
-        .d-none { display: none; }
-        .border-danger { border-color: red; }
-        .text-danger { color: red; font-size: 0.875rem; margin-top: 4px; }
-    </style>
+
 </head>
 <body>
     <nav class="navbar navbar-expand-sm sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" id="navbar-brand"><strong>Mobi</strong></a>
+            <a class="navbar-brand" id="navbar-brand" href="/user/html/index.html"><strong>Mobi</strong></a>
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="home.html">Home</a>
+                        <a class="nav-link" href="/user/html/index.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="RechargePage.html">Recharge</a>
+                        <a class="nav-link" href="/user/html/RechargePage.html">Recharge</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="Support.html">Support</a>
+                        <a class="nav-link" href="/user/html/Support.html">Support</a>
                     </li>
                 </ul>
             </div>
@@ -48,11 +42,11 @@
                 <input type="text" id="mobileNumber" class="form-control mt-2" placeholder="Enter your mobile number">
                 <span id="phError" class="text-danger d-none">Please enter a valid 10-digit mobile number.</span>
                 <button id="genOtp" class="btn mt-4 w-100">Generate OTP</button>
-                
             </div>
             
             <div id="OtpIn" class="d-none">
                 <input type="text" id="otp" class="form-control mt-2 bg-light" placeholder="Enter OTP">
+                <span id="otpError" class="text-danger d-none">Please Enter a valid OTP</span>
                 <button id="verify" class="btn mt-4 w-100" style="color: white;text-decoration: none;">Verify</button>
             </div>
         </div>
@@ -60,7 +54,7 @@
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script src="login.js"></script>
+        <script src="/user/js/login.js"></script>
     </div>
 </body>
 </html>

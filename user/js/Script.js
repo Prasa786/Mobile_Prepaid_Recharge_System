@@ -20,7 +20,7 @@ function Recharge() {
 function displayPhoneNumber() {
     const storedPhoneNumber = localStorage.getItem('phoneNumber');
     const phoneNumberDisplay = document.getElementById('phone-number-display');
-    phoneNumberDisplay.textContent = storedPhoneNumber ? `+91 ${storedPhoneNumber}` : '+91 XXXXXXXXXX';
+    phoneNumberDisplay.textContent = storedPhoneNumber ? `+91 ${storedPhoneNumber}` : 'Enter Number';
 }
 
 function openPopup() {
@@ -40,9 +40,15 @@ function savePhoneNumber() {
         displayPhoneNumber();
         closePopup();
     } else {
-        alert('Please enter a valid 10-digit phone number.');
-    }
+        editError.classList.remove("d-none");    }
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    let carousel = new bootstrap.Carousel(document.getElementById("testimonialCarousel"), {
+        interval: 5000,
+        wrap: true
+    });
+});
 
 document.getElementById('recharge-button')?.addEventListener('click', Recharge);
 document.getElementById('edit-button')?.addEventListener('click', openPopup);

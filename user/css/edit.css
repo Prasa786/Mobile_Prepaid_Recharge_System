@@ -1,7 +1,7 @@
 #phone-number-display{
     width: 150px;
     padding: 10px;
-    background-color: gray;
+    background-color: rgb(203, 201, 201);
     border-radius: 10px;
     align-items: center;
 }
@@ -23,6 +23,10 @@
     width: 400px;
     border-radius: 5px;
 }
+#save-button{
+    border-color: white;
+    
+}
 
 .close {
     color: #aaa;
@@ -36,4 +40,8 @@
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+#buyPlan{
+    background-color: #65bef5; color: white;
 }

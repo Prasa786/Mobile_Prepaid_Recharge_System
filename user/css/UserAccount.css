@@ -1,0 +1,84 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.navbar {
+    background-color: #343a40;
+}
+
+.navbar-brand {
+    color: #ffffff;
+}
+
+.nav-link {
+    color: #ffffff;
+}
+
+.bg-stone {
+    background-color: rgba(82, 82, 82, 0.4);
+}
+
+.container {
+    margin-top: 20px;
+}
+
+.profile-section, .plan-section {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-section h1, .plan-section h1 {
+    margin-bottom: 20px;
+}
+
+.profile-section p, .plan-section p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+#profileEdit {
+    display: none;
+    margin-top: 20px;
+}
+
+button {
+    background-color: #343a40;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #495057;
+}
+
+.card {
+    background-color: #ffffff;
+}
+.invoice-section {
+    margin-top: 30px;
+}
+.table-responsive {
+    max-height: 400px;
+    overflow-y: auto;
+}
+.btn-download {
+    margin-top: 10px;
+}
+.pagination {
+    justify-content: center;
+}
+#profileEdit {
+    display: none;
+}
+.error {
+    color: red;
+    font-size: 14px;
+}
