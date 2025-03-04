@@ -5,27 +5,9 @@ h1 strong{
 #changePlan{
     color: white;
     background: #65bef5;
-    margin-left: 60px;
+    margin:0 auto;
 }
-#changeNoClass{
-    margin-left: 100px;
-    width: 400px;
-    padding: 10px;
-    background: rgb(162, 210, 250);
-    border-radius: 20px;
-}
-#changeNoClass #phoneNumber{
-    width: 200px;
-    border-radius: 20px;
-    background-color: white;
-    color: #000;
-    margin-left: 50px;
-}
-#changeNo{
-    color: white;
-    background: #65bef5;
-    margin-right: 30px;
-}
+
 #planDetailsHead{
     margin-left: 200px;
     padding-left: 0px;
@@ -56,11 +38,6 @@ h1 strong{
     text-align: left;
 }
 
-#phone-number-display{
-    width: fit-content;
-    background-color: rgb(193, 193, 193);
-}
-
 .popup {
     display: flex;
     position: fixed;
@@ -81,6 +58,7 @@ h1 strong{
     width: 400px;
     border-radius: 5px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center; /* Center text inside the popup */
 }
 
 

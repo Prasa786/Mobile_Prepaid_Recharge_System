@@ -1,20 +1,46 @@
-function validatePhoneNumber(phoneNumber) {
-    const phoneRegex = /^\d{10}$/;
-    return phoneRegex.test(phoneNumber);
-}
-
 function Recharge() {
     const phoneNumberInput = document.getElementById('phoneNumber');
     const errorMessage = document.getElementById('error-message');
     const phoneNumber = phoneNumberInput.value;
 
-    if (validatePhoneNumber(phoneNumber)) {
-        localStorage.setItem('phoneNumber', phoneNumber);
-        window.location.href = 'RechargePage.html';
-    } else {
+    const validPhoneNumbers = [
+        '9123456789',
+        '9876543210',
+        '9998887776',
+        '9922334455',
+        '9334455667',
+        '9999999999'
+    ];
+    
+    
+    if (isEmpty(phoneNumber)) {
         errorMessage.textContent = 'Please enter a valid 10-digit phone number.';
-        errorMessage.style.color = 'white';
+        errorMessage.style.color = 'red';
+    } else {
+        
+        if (validPhoneNumbers.includes(phoneNumber)) {
+            
+            if (validatePhoneNumber(phoneNumber)) {
+                localStorage.setItem('phoneNumber', phoneNumber);
+                window.location.href = 'RechargePage.html';
+            } else {
+                errorMessage.textContent = 'Please enter a valid 10-digit phone number.';
+                errorMessage.style.color = 'red';
+            }
+        } else {
+            errorMessage.textContent = 'The entered phone number is not recognized.';
+            errorMessage.style.color = 'red';
+        }
     }
+}
+
+function isEmpty(value) {
+    return !value || value.trim().length === 0;
+}
+
+function validatePhoneNumber(phoneNumber) {
+    const phoneRegex = /^\d{10}$/;
+    return phoneRegex.test(phoneNumber);
 }
 
 function displayPhoneNumber() {

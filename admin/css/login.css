@@ -47,14 +47,3 @@
     text-align: center;
     margin-top: 10px;
 }
-.password-container {
-    position: relative;
-}
-
-.password-container .toggle-password {
-    position: absolute;
-    top: 70%;
-    right: 10px;
-    transform: translateY(-50%);
-    cursor: pointer;
-}

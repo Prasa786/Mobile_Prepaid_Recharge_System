@@ -91,7 +91,7 @@ const notifications = [
         name: 'Tony Stark',
         mobile: '9876543212',
         message: 'Your plan expires soon!',
-        dateSent: '15-Feb-2025',
+        dateSent: '15/2/2025',
         status: 'Sent'
     },
     {
@@ -99,7 +99,7 @@ const notifications = [
         name: 'Steve Rogers',
         mobile: '9876543213',
         message: 'Recharge now & get 10% off',
-        dateSent: '13-Feb-2025',
+        dateSent: '13/2/2025',
         status: 'Sent'
     }
 ];

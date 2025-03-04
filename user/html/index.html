@@ -45,13 +45,13 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="/user/img/MobilePhone.jpeg" alt="Image1" class="d-block w-100">
-            </div>
-            <div class="carousel-item">
                 <img src="/user/img/guyHoldingAMobilePhone.jpeg" alt="Image2" class="d-block w-100">
             </div>
             <div class="carousel-item">
                 <img src="/user/img/ThreePerson2.jpeg" alt="Image3" class="d-block w-100">
+            </div>
+            <div class="carousel-item">
+                <img src="/user/img/MobilePhone.jpeg" alt="Image1" class="d-block w-100">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
@@ -67,75 +67,71 @@
             <legend><strong>Recharge</strong></legend>
             <input type="text" id="phoneNumber" placeholder="Enter Phone number" required>
             <div id="error-message" style="margin-top: 5px;"></div>
-            <button type="button" id="recharge-button" style="color: white; text-decoration: none;">Recharge</button>
+            <button type="button" id="recharge-button">Recharge</button>
         </fieldset>
     </div>
-    <br>
-
-    <div class="container">
-        <h1 class="display-4 mb-4"><strong>Top Plans</strong></h1>
-            <div class="container mt-5">
-                <div class="testimonial-container">
-                    <div class="row">
-
-                        <div class="col-lg-3 col-md-6 mb-4" id="Plan1">
-                            <div class="card h-100">
-                                <div class="card-body shadow">
-                                    <span class="badge text-white mb-3">5G Plan</span>
-                                    <h2 class="card-title">₹3599</h2>
-                                    <p class="card-text">
-                                        Validity<br><strong style="color: black;">365 Days</strong><br>
-                                        Data<br><strong style="color: black;">2.5 GB/Day</strong>
-                                    </p>
-                                    <button class="btn w-100" style="background-color: rgb(57, 179, 255);" onclick="location.href='RechargePage.html'">Buy</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-md-6 mb-4" id="Plan2">
-                            <div class="card h-100">
-                                <div class="card-body shadow">
-                                    <span class="badge text-white mb-3">5G Plan</span>
-                                    <h2 class="card-title">₹1029</h2>
-                                    <p class="card-text">
-                                        Validity<br><strong style="color: black;">84 Days</strong><br>
-                                        Data<br><strong style="color: black;">2 GB/Day</strong>
-                                    </p>
-                                    <button class="btn w-100" style="background-color: rgb(57, 179, 255);" onclick="location.href='RechargePage.html'">Buy</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-md-6 mb-4" id="Plan3">
-                            <div class="card h-100">
-                                <div class="card-body shadow">
-                                    <span class="badge text-white mb-3">5G Plan</span>
-                                    <h2 class="card-title">₹399</h2>
-                                    <p class="card-text">
-                                        Validity<br><strong style="color: black;">90 Days</strong><br>
-                                        Data<br><strong style="color: black;">2.5 GB/Day</strong>
-                                    </p>
-                                    <button class="btn w-100" style="background-color: rgb(57, 179, 255);" onclick="location.href='RechargePage.html'">Buy</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-md-6 mb-4" id="Plan4">
-                            <div class="card h-100">
-                                <div class="card-body shadow">
-                                    <span class="badge text-white mb-3">5G Plan</span>
-                                    <h2 class="card-title">₹299</h2>
-                                    <p class="card-text">
-                                        Validity<br><strong style="color: black;">28 Days</strong><br>
-                                        Data<br><strong style="color: black;">1.5 GB/Day</strong>
-                                    </p>
-                                    <button class="btn w-100" style="background-color: rgb(57, 179, 255);" onclick="location.href='RechargePage.html'">Buy</button>
-                                </div>
-                            </div>
-                        </div>
+        
+    <div class="container mt-5">
+        <h1 class="display-4 mb-4">
+            <strong id="heading">Top Plans</strong>
+        </h1>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4 " id="Plan1">
+                <div class="card h-100">
+                    <div class="card-body shadow ">
+                        <span class="badge text-white mb-3">5G Plan</span>
+                        <h2 class="card-title">₹3599</h2>
+                        <p class="card-text">
+                            Validity<br><strong>365 Days</strong><br>
+                            Data<br><strong>2.5 GB/Day</strong>
+                        </p>
+                        <button class="btn w-100" style="background-color: rgb(57, 179, 255);" onclick="location.href='RechargePage.html'">Buy</button>
                     </div>
                 </div>
             </div>
+
+            <div class="col-lg-3 col-md-6 mb-4" id="Plan2">
+                <div class="card h-100">
+                    <div class="card-body shadow">
+                        <span class="badge text-white mb-3">5G Plan</span>
+                        <h2 class="card-title">₹1029</h2>
+                        <p class="card-text">
+                            Validity<br><strong style="color: black;">84 Days</strong><br>
+                            Data<br><strong style="color: black;">2 GB/Day</strong>
+                        </p>
+                        <button class="btn w-100" style="background-color: rgb(57, 179, 255);" onclick="location.href='RechargePage.html'">Buy</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4" id="Plan3">
+                <div class="card h-100">
+                    <div class="card-body shadow">
+                        <span class="badge text-white mb-3">5G Plan</span>
+                        <h2 class="card-title">₹399</h2>
+                        <p class="card-text">
+                            Validity<br><strong style="color: black;">90 Days</strong><br>
+                            Data<br><strong style="color: black;">2.5 GB/Day</strong>
+                        </p>
+                        <button class="btn w-100" style="background-color: rgb(57, 179, 255);" onclick="location.href='RechargePage.html'">Buy</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4" id="Plan4">
+                <div class="card h-100">
+                    <div class="card-body shadow">
+                        <span class="badge text-white mb-3">5G Plan</span>
+                        <h2 class="card-title">₹299</h2>
+                        <p class="card-text">
+                            Validity<br><strong style="color: black;">28 Days</strong><br>
+                            Data<br><strong style="color: black;">1.5 GB/Day</strong>
+                        </p>
+                        <button class="btn w-100" style="background-color: rgb(57, 179, 255);" onclick="location.href='RechargePage.html'">Buy</button>
+                    </div>
+                </div>
+            </div>  
+        </div>
     </div>
 
     

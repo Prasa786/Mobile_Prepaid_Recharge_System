@@ -3,7 +3,7 @@ body {
 }
 
 .navbar {
-    background-color: #343a40;
+    background-color: #2d9de2;
 }
 
 .navbar-brand {
@@ -47,7 +47,7 @@ body {
 }
 
 button {
-    background-color: #343a40;
+    background-color: #2d9de2;
     color: #ffffff;
     border: none;
     padding: 10px 20px;
@@ -56,11 +56,14 @@ button {
 }
 
 button:hover {
-    background-color: #495057;
+    background-color: #0667a3;
 }
 
 .card {
     background-color: #ffffff;
+}
+.card strong{
+    color: #000;
 }
 .invoice-section {
     margin-top: 30px;

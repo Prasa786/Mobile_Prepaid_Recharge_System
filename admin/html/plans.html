@@ -15,6 +15,7 @@
         <h3 class="sidebar-title">MobiCom</h3>
         <ul class="sidebar-nav">
             <li><a href="/admin/html/dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li><a href="/admin/html/reportAnalysis.html"><i class="fas fa-chart-line"></i> Report & Analysis</a></li>
             <li><a href="/admin/html/subscribers.html"><i class="fas fa-users"></i> Subscribers</a></li>
             <li><a href="/admin/html/transactionHistory.html"><i class="fas fa-history"></i> Transaction History</a></li>
             <li class="active"><a href="/admin/html/plans.html"><i class="fas fa-list"></i> Plans</a></li>
@@ -119,23 +120,23 @@
             <form id="add-plan-form">
                 <div class="mb-3">
                     <label for="plan-price" class="form-label">Price (₹)</label>
-                    <input type="number" class="form-control" id="plan-price" required>
-                    <div id="price-error" class="text-danger">Enter the price of plan.</div> <!-- Inner HTML name -->
+                    <input type="number" class="form-control" id="plan-price" placeholder="Enter Price" required>
+                    <div id="price-error" class="text-danger"></div> <!-- Inner HTML name -->
                 </div>
                 <div class="mb-3">
                     <label for="plan-validity" class="form-label">Validity</label>
-                    <input type="text" class="form-control" id="plan-validity" required>
-                    <div id="validity-error" class="text-danger">Enter the validity.</div> <!-- Inner HTML name -->
+                    <input type="text" class="form-control" id="plan-validity" placeholder="Enter Validity" required>
+                    <div id="validity-error" class="text-danger"></div> <!-- Inner HTML name -->
                 </div>
                 <div class="mb-3">
                     <label for="plan-data" class="form-label">Data Benefits</label>
-                    <input type="text" class="form-control" id="plan-data" required>
-                    <div id="data-error" class="text-danger">Enter the data.</div> <!-- Inner HTML name -->
+                    <input type="text" class="form-control" id="plan-data" placeholder="Enter Data" required>
+                    <div id="data-error" class="text-danger"></div> <!-- Inner HTML name -->
                 </div>
                 <div class="mb-3">
                     <label for="plan-category" class="form-label">Category</label>
-                    <input type="text" class="form-control" id="plan-category" required>
-                    <div id="category-error" class="text-danger">Enter Category.</div> <!-- Inner HTML name -->
+                    <input type="text" class="form-control" id="plan-category" placeholder="Enter Category" required>
+                    <div id="category-error" class="text-danger"></div> <!-- Inner HTML name -->
                 </div>
                 <button type="submit" class="btn btn-primary">Add Plan</button>
                 <button type="button" class="btn btn-secondary" onclick="closePopup()">Cancel</button>

@@ -1,7 +1,7 @@
 document.getElementById("proceedToPay").addEventListener("click", function () {
     let isValid = true;
     let selectedPaymentMethod = null;
-
+    
     const cardNumber = document.getElementById("cardNumber").value.trim();
     const expiryDate = document.getElementById("expiryDate").value.trim();
     const cvv = document.getElementById("cvv").value.trim();
