@@ -1,11 +1,3 @@
-const subscribers = [
-    { name: "Tony Stark", mobile: "+91 9234567890", plan: "Unlimited Plan", expiry: "2025-02-20", lastRecharge: "2025-01-20", notifyMobile: "+91 9876543212" },
-    { name: "Steve Rogers", mobile: "+91 9876543210", plan: "Basic Plan", expiry: "2025-02-22", lastRecharge: "2025-01-18", notifyMobile: "+91 9876543213" },
-    { name: "Bruce Banner", mobile: "+91 9123456789", plan: "Data Booster Plan", expiry: "2025-02-21", lastRecharge: "2025-01-19", notifyMobile: "+91 9876543214" },
-    { name: "Natasha Romanoff", mobile: "+91 9988776655", plan: "Long validity Plan", expiry: "2025-02-23", lastRecharge: "2025-01-18", notifyMobile: "+91 9876543215" },
-    { name: "Clint Barton", mobile: "+91 9876567890", plan: "Popular Plan", expiry: "2025-02-24", lastRecharge: "2025-01-18", notifyMobile: "+91 9876543216" }
-];
-
 function populateSubscribersTable() {
     const tbody = document.getElementById("expiring-subscribers-tbody");
     subscribers.forEach((subscriber, index) => {

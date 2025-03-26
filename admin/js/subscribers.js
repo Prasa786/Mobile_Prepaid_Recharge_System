@@ -1,16 +1,17 @@
 const subscribers = [
-    { name: 'Clint Barton', mobile: '+91 9876543212', plan: 'Unlimited Plan', expiryDate: '2025-02-20', lastRecharge: '2025-01-20', status: 'active' },
-    { name: 'Natasha Romonoff', mobile: '+91 9876543213', plan: 'Basic Plan', expiryDate: '2025-02-22', lastRecharge: '2025-01-18', status: 'active' },
-    { name: 'Tony Stark', mobile: '+91 9876543214', plan: 'Premium Plan', expiryDate: '2025-03-01', lastRecharge: '2025-02-01', status: 'active' },
-    { name: 'Bruce Banner', mobile: '+91 9876543215', plan: 'Basic Plan', expiryDate: '2025-02-25', lastRecharge: '2025-01-25', status: 'active' },
-    { name: 'Steve Rogers', mobile: '+91 9876543216', plan: 'Unlimited Plan', expiryDate: '2025-03-05', lastRecharge: '2025-02-05', status: 'active' },
-    { name: 'Thor Odinson', mobile: '+91 9876543217', plan: 'Premium Plan', expiryDate: '2025-03-10', lastRecharge: '2025-02-10', status: 'inactive' },
-    { name: 'Wanda Maximoff', mobile: '+91 9876543218', plan: 'Basic Plan', expiryDate: '2025-03-15', lastRecharge: '2025-02-15', status: 'active' },
-    { name: 'Peter Parker', mobile: '+91 9876543219', plan: 'Unlimited Plan', expiryDate: '2025-03-20', lastRecharge: '2025-02-20', status: 'active' },
-    { name: 'Carol Danvers', mobile: '+91 9876543220', plan: 'Premium Plan', expiryDate: '2025-03-25', lastRecharge: '2025-02-25', status: 'active' },
-    { name: 'Scott Lang', mobile: '+91 9876543221', plan: 'Basic Plan', expiryDate: '2025-03-30', lastRecharge: '2025-02-30', status: 'inactive' },
-    { name: 'Hope van Dyne', mobile: '+91 9876543222', plan: 'Unlimited Plan', expiryDate: '2025-04-05', lastRecharge: '2025-03-05', status: 'active' },
-    { name: 'Sam Wilson', mobile: '+91 9876543223', plan: 'Premium Plan', expiryDate: '2025-04-10', lastRecharge: '2025-03-10', status: 'active' },
+    { username: 'BarackObama', email: 'barack.obama@example.com', mobile: '+91 9876543212', status: 'ACTIVE' },
+    { username: 'JoeBiden', email: 'joe.biden@example.com', mobile: '+91 9876543213', status: 'ACTIVE' },
+    { username: 'DonaldTrump', email: 'donald.trump@example.com', mobile: '+91 9876543214', status: 'ACTIVE' },
+    { username: 'Elon Musk', email: 'elon.musk@example.com', mobile: '+91 9876543215', status: 'ACTIVE' },
+    { username: 'Arvind Kejriwal', email: 'arvind.kejriwal@example.com', mobile: '+91 9876543216', status: 'ACTIVE' },
+    { username: 'Ethan Hunt', email: 'ethan.hunt@example.com', mobile: '+91 9876543217', status: 'INACTIVE' },
+    { username: 'LeonardoDiCaprio', email: 'leonardo.dicaprio@example.com', mobile: '+91 9876543218', status: 'ACTIVE' },
+    { username: 'BradPitt', email: 'brad.pitt@example.com', mobile: '+91 9876543219', status: 'ACTIVE' },
+    { username: 'TomCruise', email: 'tom.cruise@example.com', mobile: '+91 9876543220', status: 'ACTIVE' },
+    { username: 'AngelinaJolie', email: 'angelina.jolie@example.com', mobile: '+91 9876543221', status: 'INACTIVE' },
+    { username: 'TaylorSwift', email: 'taylor.swift@example.com', mobile: '+91 9876543222', status: 'ACTIVE' },
+    { username: 'Narendra Modi', email: 'narendra.modi@example.com', mobile: '+91 9876543223', status: 'ACTIVE' },
+    { username: 'Rahul Gandhi', email: 'rahul.gandhi@example.com', mobile: '+91 9976543217', status: 'ACTIVE' }
 ];
 
 const rowsPerPage = 2;
@@ -32,7 +33,7 @@ function populateTable() {
     paginatedSubscribers.forEach(subscriber => {
         const row = `
             <tr>
-                <td>${subscriber.name}</td>
+                <td>${subscriber.username}</td>
                 <td>${subscriber.mobile}</td>
                 <td>${subscriber.plan}</td>
                 <td>${subscriber.expiryDate}</td>
@@ -78,7 +79,7 @@ function viewHistory(name, mobile, plan, expiryDate, lastRecharge) {
     
     popupContent.innerHTML = `
         <h3>Subscriber Details</h3>
-        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Name:</strong> ${username}</p>
         <p><strong>Mobile No.:</strong> ${mobile}</p>
         <p><strong>Plan:</strong> ${plan}</p>
         <p><strong>Expiry Date:</strong> ${expiryDate}</p>

@@ -1,251 +1,269 @@
-const plans = [
-    { name: "Basic Plan", price: "₹199", validity: "30 Days", data: "nil", status: "Active", username: "Tony Stark" },
-    { name: "Unlimited Plan", price: "₹399", validity: "60 Days", data: "1.5GB/Day", status: "Active", username: "Steve Rogers" },
-    { name: "Data Plan", price: "₹599", validity: "90 Days", data: "4GB Total", status: "Inactive", username: "Bruce Banner" },
-    { name: "Popular Plan", price: "₹999", validity: "120 Days", data: "5GB/Day", status: "Active", username: "Peter Parker" },
-    { name: "Long Validity Plan", price: "₹899", validity: "100 Days", data: "3GB/Day", status: "Active", username: "Natasha Romanoff" },
-    { name: "Recommended Plan", price: "₹799", validity: "80 Days", data: "2GB/Day", status: "Inactive", username: "Clint Barton" }
-];
-
-const availablePlans = [
-    { price: 299, validity: "28 Days", data: "1.5GB/Day", type: "popular", totalData: "42 GB" },
-    { price: 399, validity: "90 Days", data: "2.5GB/Day", type: "popular", totalData: "225 GB" },
-    { price: 749, validity: "72 Days", data: "2GB/Day", type: "data", totalData: "144 GB" },
-    { price: 1029, validity: "84 Days", data: "2GB/Day", type: "long", totalData: "168 GB" },
-    { price: 3599, validity: "365 Days", data: "2.5GB/Day", type: "long", totalData: "730 GB" },
-    { price: 899, validity: "90 Days", data: "3GB/Day", type: "long", totalData: "270 GB" },
-    { price: 1299, validity: "180 Days", data: "10GB/Day", type: "long", totalData: "1800 GB" },
-    { price: 2599, validity: "180 Days", data: "Unlimited", type: "unlimited", totalData: "Unlimited" },
-    { price: 159, validity: "28 Days", data: "120GB/Plan", type: "data", totalData: "120 GB" },
-    { price: 199, validity: "28 Days", data: "200GB/Plan", type: "data", totalData: "200 GB" }
-];
-
-let filteredPlans = [...plans];
-const rowsPerPage = 5;
-let currentPage = 1;
-
-function populateAvailablePlansTable() {
-    const tbody = document.getElementById("available-plans-tbody");
-    tbody.innerHTML = '';
-
-    const start = (currentPage - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-    const paginatedPlans = availablePlans.slice(start, end);
-
-    paginatedPlans.forEach((plan, index) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>₹${plan.price}</td>
-            <td>${plan.validity}</td>
-            <td>${plan.data}</td>
-            <td>${plan.totalData}</td>
-            <td>${plan.type}</td>
-            <td><button class="btn btn-danger" onclick="deleteAvailablePlan(${start + index})">Delete</button></td>
-        `;
-        tbody.appendChild(row);
-    });
-
-    updatePagination();
-}
-
-
-function populateTable() {
-    const tbody = document.getElementById("plans-tbody");
-    tbody.innerHTML = '';
-
-    const start = (currentPage - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-    const paginatedPlans = filteredPlans.slice(start, end);
-
-    paginatedPlans.forEach((plan, index) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>${plan.name}</td>
-            <td>${plan.username}</td>
-            <td>${plan.price}</td>
-            <td>${plan.validity}</td>
-            <td>${plan.data}</td>
-            <td>${plan.status}</td>
-        `;
-        tbody.appendChild(row);
-    });
-
-    updatePagination();
-}
-
-
-
-function deleteAvailablePlan(index) {
-    if (confirm("Are you sure you want to delete this plan?")) {
-        availablePlans.splice(index, 1);
-        populateAvailablePlansTable();
-        showDeleteToast();
-    }
-}
-
-
-function showDeleteToast() {
-    const toast = document.createElement("div");
-    toast.className = "toast";
-    toast.innerHTML = "Plan deleted successfully!";
-    document.body.appendChild(toast);
-
-    setTimeout(() => {
-        document.body.removeChild(toast);
-    }, 2000);
-}
-
-
-function updatePagination() {
-    const totalPages = Math.ceil(availablePlans.length / rowsPerPage);
+document.addEventListener('DOMContentLoaded', function () {
+    const addPlanButton = document.getElementById('add-plan-button');
+    const addPlanPopup = document.getElementById('add-plan-popup');
+    const addPlanForm = document.getElementById('add-plan-form');
+    const availablePlansTbody = document.getElementById('availablePlansTbody');
     const pagination = document.querySelector(".pagination");
-    pagination.innerHTML = '';
+    const itemsPerPage = 10; // Number of rows per page
+    let currentPage = 0;
+    let allPlans = [];
 
+    // Fetch plans from the backend
+    async function fetchPlans() {
+        const token = localStorage.getItem('adminToken'); // Retrieve the token from localStorage
+        console.log("Fetching plans with token:", token); // Log the token for debugging
     
-    const prevButton = document.createElement("li");
-    prevButton.className = `page-item ${currentPage === 1 ? "disabled" : ""}`;
-    prevButton.innerHTML = `<a class="page-link" href="#" onclick="changePage(${currentPage - 1})">Previous</a>`;
-    pagination.appendChild(prevButton);
-
-    
-    for (let i = 1; i <= totalPages; i++) {
-        const pageItem = document.createElement("li");
-        pageItem.className = `page-item ${i === currentPage ? "active" : ""}`;
-        pageItem.innerHTML = `<a class="page-link" href="#" onclick="changePage(${i})">${i}</a>`;
-        pagination.appendChild(pageItem);
-    }
-
-    
-    const nextButton = document.createElement("li");
-    nextButton.className = `page-item ${currentPage === totalPages ? "disabled" : ""}`;
-    nextButton.innerHTML = `<a class="page-link" href="#" onclick="changePage(${currentPage + 1})">Next</a>`;
-    pagination.appendChild(nextButton);
-}
-
-
-function changePage(page) {
-    if (page < 1 || page > Math.ceil(availablePlans.length / rowsPerPage)) {
-        return; 
-    }
-    currentPage = page;
-    populateAvailablePlansTable();
-}
-
-
-document.getElementById('search').addEventListener('input', function () {
-    const searchValue = this.value.toLowerCase();
-    filteredPlans = plans.filter(plan =>
-        plan.name.toLowerCase().includes(searchValue) ||
-        plan.price.toLowerCase().includes(searchValue) ||
-        plan.validity.toLowerCase().includes(searchValue) ||
-        plan.data.toLowerCase().includes(searchValue) ||
-        plan.status.toLowerCase().includes(searchValue)
-    );
-    populateTable();
-});
-
-
-document.getElementById('add-plan-button').addEventListener('click', function () {
-    document.getElementById('add-plan-popup').style.display = 'flex';
-});
-
-
-function closePopup() {
-    document.getElementById('add-plan-popup').style.display = 'none';
-}
-
-
-
-document.getElementById('add-plan-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const price = document.getElementById('plan-price').value; 
-    const validity = document.getElementById('plan-validity').value; 
-    const data = document.getElementById('plan-data').value; 
-    const category = document.getElementById('plan-category').value; 
-
-    let valid = true;
-
-    
-    if (!price) {
-        document.getElementById('price-error').innerHTML = "Price is required."; 
-        valid = false;
-    } else if (isNaN(price) || price <= 0) {
-        document.getElementById('price-error').innerHTML = "Price must be a valid number greater than 0."; 
-        valid = false;
-    } else {
-        document.getElementById('price-error').innerHTML = ""; 
-    }
-
-    
-    if (!validity) {
-        document.getElementById('validity-error').innerHTML = "Validity is required."; 
-        valid = false;
-    } else {
-        document.getElementById('validity-error').innerHTML = ""; 
-    }
-
-    
-    if (!data) {
-        document.getElementById('data-error').innerHTML = "Data is required."; 
-        valid = false;
-    } else {
-        document.getElementById('data-error').innerHTML = ""; 
-    }
-
-    
-    if (!category) {
-        document.getElementById('category-error').innerHTML = "Category is required."; 
-        valid = false;
-    } else {
-        document.getElementById('category-error').innerHTML = ""; 
-    }
-
-    
-    if (valid) {
-        const newPlan = {
-            price: parseInt(price),
-            validity: validity,
-            data: data,
-            totalData: data, 
-            type: category
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         };
-        availablePlans.push(newPlan);
-        populateAvailablePlansTable();
-        closePopup();
-
-        
-        document.getElementById('add-plan-form').reset(); 
+    
+        try {
+            const response = await fetch('http://localhost:8083/api/recharge-plans', {
+                method: 'GET',
+                headers: headers
+            });
+    
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error("Response error:", errorText);
+                throw new Error(`Failed to fetch plans: ${response.status} - ${errorText}`);
+            }
+    
+            const plans = await response.json();
+            console.log("Fetched plans:", plans);
+            allPlans = plans; // Store the fetched plans
+            renderTable(plans); // Render the table with the fetched plans
+            setupPagination(plans); // Set up pagination
+        } catch (error) {
+            console.error('Error fetching plans:', error);
+        }
     }
+
+    // Render the table with plans
+    function renderTable(plans) {
+        availablePlansTbody.innerHTML = ""; // Clear existing rows
+        plans.forEach(plan => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${plan.name || ''}</td>
+                <td>${plan.price || ''}</td>
+                <td>${plan.validity || ''}</td>
+                <td>${plan.dataLimit || ''}</td>
+                <td>${plan.benefits || 'N/A'}</td>
+                <td>${plan.planType || 'N/A'}</td>
+                <td>${plan.description || ''}</td>
+                <td>${plan.smsCount || ''}</td>
+                <td>${plan.callMinutes || ''}</td>
+                <td>${plan.validityDays || 'N/A'}</td>
+                <td>
+                    <button class="btn btn-sm btn-warning" onclick="editPlan(${plan.id})">Edit</button>
+                    <button class="btn btn-sm btn-danger" onclick="deletePlan(${plan.id})">Delete</button>
+                </td>
+            `;
+            availablePlansTbody.appendChild(row);
+        });
+    }
+
+    // Setup pagination
+    function setupPagination(plans) {
+        const totalPages = Math.ceil(plans.length / itemsPerPage);
+        pagination.innerHTML = "";
+
+        // Previous button
+        const prevButton = document.createElement("li");
+        prevButton.className = "page-item";
+        prevButton.innerHTML = `<a class="page-link" href="#" onclick="changePage(${currentPage - 1})">Previous</a>`;
+        prevButton.disabled = currentPage === 1;
+        pagination.appendChild(prevButton);
+
+        // Page numbers
+        for (let i = 1; i <= totalPages; i++) {
+            const pageItem = document.createElement("li");
+            pageItem.className = "page-item" + (i === currentPage ? " active" : "");
+            pageItem.innerHTML = `<a class="page-link" href="#" onclick="changePage(${i})">${i}</a>`;
+            pagination.appendChild(pageItem);
+        }
+
+        // Next button
+        const nextButton = document.createElement("li");
+        nextButton.className = "page-item";
+        nextButton.innerHTML = `<a class="page-link" href="#" onclick="changePage(${currentPage + 1})">Next</a>`;
+        nextButton.disabled = currentPage === totalPages;
+        pagination.appendChild(nextButton);
+    }
+
+    // Change page
+    window.changePage = function (page) {
+        currentPage = page;
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const paginatedPlans = allPlans.slice(startIndex, endIndex);
+        renderTable(paginatedPlans);
+        setupPagination(allPlans);
+    };
+
+    // Add plan button click event
+    addPlanButton.addEventListener('click', function () {
+        addPlanPopup.style.display = 'flex';
+        addPlanForm.reset();
+        addPlanForm.onsubmit = function (e) {
+            e.preventDefault();
+            addPlan();
+        };
+    });
+
+    window.closePopup = function () {
+        addPlanPopup.style.display = 'none';
+    };
+
+    // Add a new plan
+    function addPlan() {
+        const plan = {
+            name: document.getElementById('plan-name').value,
+            price: parseFloat(document.getElementById('plan-price').value),
+            validity: document.getElementById('plan-validity').value,
+            dataLimit: document.getElementById('plan-data-limit').value,
+            description: document.getElementById('plan-description').value,
+            smsCount: parseInt(document.getElementById('plan-sms-count').value),
+            callMinutes: parseInt(document.getElementById('plan-call-minutes').value),
+            category: {
+                categoryId: parseInt(document.getElementById('plan-category').value)
+            }
+        };
+
+        const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        };
+
+        fetch('http://localhost:8083/api/recharge-plans', {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(plan)
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => {
+                    throw new Error(`Failed to add plan: ${response.status} - ${text}`);
+                });
+            }
+            return response.json();
+        })
+        .then(data => {
+            closePopup();
+            fetchPlans(); // Refresh the plans list
+        })
+        .catch(error => console.error('Error adding plan:', error));
+    }
+
+    // Edit a plan
+    window.editPlan = function (id) {
+        const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+        const headers = {
+            'Authorization': `Bearer ${token}`
+        };
+
+        fetch(`http://localhost:8083/api/recharge-plans/${id}`, {
+            headers: headers
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => {
+                    throw new Error(`Failed to fetch plan: ${response.status} - ${text}`);
+                });
+            }
+            return response.json();
+        })
+        .then(plan => {
+            // Populate the form with the plan details
+            document.getElementById('plan-name').value = plan.name || '';
+            document.getElementById('plan-price').value = plan.price || '';
+            document.getElementById('plan-validity').value = plan.validity || '';
+            document.getElementById('plan-data-limit').value = plan.dataLimit || '';
+            document.getElementById('plan-benefits').value = plan.benefits || '';
+            document.getElementById('plan-type').value = plan.planType || '';
+            document.getElementById('plan-description').value = plan.description || '';
+            document.getElementById('plan-sms-count').value = plan.smsCount || '';
+            document.getElementById('plan-call-minutes').value = plan.callMinutes || '';
+            document.getElementById('plan-validity-days').value = plan.validityDays || '';
+            document.getElementById('plan-category').value = plan.category?.categoryId || '';
+
+            addPlanPopup.style.display = 'flex';
+            addPlanForm.onsubmit = function(e) {
+                e.preventDefault();
+                updatePlan(id); // Call updatePlan with the plan ID
+            };
+        })
+        .catch(error => console.error('Error fetching plan:', error));
+    };
+
+    // Update an existing plan
+    function updatePlan(id) {
+        const plan = {
+            name: document.getElementById('plan-name').value,
+            price: parseFloat(document.getElementById('plan-price').value),
+            validity: document.getElementById('plan-validity').value,
+            dataLimit: document.getElementById('plan-data-limit').value,
+            description: document.getElementById('plan-description').value,
+            smsCount: parseInt(document.getElementById('plan-sms-count').value),
+            callMinutes: parseInt(document.getElementById('plan-call-minutes').value),
+            category: {
+                categoryId: parseInt(document.getElementById('plan-category').value)
+            }
+        };
+
+        const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        };
+
+        fetch(`http://localhost:8083/api/recharge-plans/${id}`, {
+            method: 'PUT',
+            headers: headers,
+            body: JSON.stringify(plan)
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => {
+                    throw new Error(`Failed to update plan: ${response.status} - ${text}`);
+                });
+            }
+            return response.json();
+        })
+        .then(() => {
+            closePopup();
+            fetchPlans(); // Refresh the plans list
+        })
+        .catch(error => console.error('Error updating plan:', error));
+    }
+
+    // Delete a plan
+    window.deletePlan = function (id) {
+        if (confirm('Are you sure you want to delete this plan?')) {
+            const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+            const headers = {
+                'Authorization': `Bearer ${token}`
+            };
+
+            fetch(`http://localhost:8083/api/recharge-plans/${id}`, {
+                method: 'DELETE',
+                headers: headers
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => {
+                        throw new Error(`Failed to delete plan: ${response.status} - ${text}`);
+                    });
+                }
+                fetchPlans(); // Refresh the plans list
+            })
+            .catch(error => console.error('Error deleting plan:', error));
+        }
+    };
+
+    // Initial fetch
+    fetchPlans();
 });
-
-
-document.getElementById('plan-price').addEventListener('input', function () {
-    document.getElementById('price-error').innerHTML = ""; 
-});
-
-document.getElementById('plan-validity').addEventListener('input', function () {
-    document.getElementById('validity-error').innerHTML = ""; 
-});
-
-document.getElementById('plan-data').addEventListener('input', function () {
-    document.getElementById('data-error').innerHTML = ""; 
-});
-
-document.getElementById('plan-category').addEventListener('input', function () {
-    document.getElementById('category-error').innerHTML = ""; 
-});
-
-
-document.getElementById('add-plan-button').addEventListener('click', function () {
-    document.getElementById('add-plan-popup').style.display = 'flex'; 
-});
-
-
-function closePopup() {
-    document.getElementById('add-plan-popup').style.display = 'none'; 
-}
-
-
-populateTable(); 
-populateAvailablePlansTable(); 

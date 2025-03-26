@@ -1,72 +1,99 @@
- const storedUsername = 'leo@das.com';
- const storedPassword = 'pass123';
+const apiBaseUrl = "http://localhost:8083/api";
 
- document.getElementById('loginForm').addEventListener('submit', function (e) {
-     e.preventDefault();
 
-     const username = document.getElementById('username');
-     const password = document.getElementById('password');
-     const usernameError = document.getElementById('usernameError');
-     const passwordError = document.getElementById('passwordError');
-     const incorrectFeedback = document.getElementById('incorrectFeedback');
+document.addEventListener("DOMContentLoaded", function () {
+    const loginForm = document.getElementById("loginForm");
 
-     let isValid = true;
+    if (!loginForm) {
+        console.error("Error: Login form not found!");
+        return;
+    }
 
-     if (username.value.trim() === '') {
-         username.classList.add('is-invalid');
-         usernameError.classList.remove('d-none');
-         isValid = false;
-     } else {
-         username.classList.remove('is-invalid');
-         usernameError.classList.add('d-none');
-     }
+    loginForm.addEventListener("submit", async function (event) {
+        event.preventDefault(); 
 
-     if (password.value.trim() === '') {
-         password.classList.add('is-invalid');
-         passwordError.classList.remove('d-none');
-         isValid = false;
-     } else {
-         password.classList.remove('is-invalid');
-         passwordError.classList.add('d-none');
-     }
+        const usernameInput = document.getElementById("username");
+        const passwordInput = document.getElementById("password");
 
-     if (isValid) {
-         if (username.value === storedUsername && password.value === storedPassword) {
-             
-             $('.toast').toast('show');
-             setTimeout(() => {
-                 window.location.href ='/admin/html/dashboard.html';
-             }, 2000);
-         } else {
-             incorrectFeedback.style.display = 'block';
-             setTimeout(() => {
-                 incorrectFeedback.style.display = 'none';
-             }, 3000);
-         }
-     }
- });
+        if (!usernameInput || !passwordInput) {
+            console.error("Error: Username or Password input fields not found!");
+            return;
+        }
 
- 
- document.getElementById('togglePassword').addEventListener('click', function () {
-     const passwordField = document.getElementById('password');
-     const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-     passwordField.setAttribute('type', type);
-     this.classList.toggle('fa-eye-slash');
- });
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value.trim();
 
- 
- document.getElementById('username').addEventListener('input', function () {
-     if (this.value.trim() !== '') {
-         this.classList.remove('is-invalid');
-         document.getElementById('usernameError').classList.add('d-none');
-         document.getElementById('incorrectFeedback').style.display = 'none';
-     }
- });
+        
+        if (!username || !password) {
+            if (!username) {
+                document.getElementById("usernameError").classList.remove("d-none");
+                usernameInput.classList.add("is-invalid");
+            }
+            if (!password) {
+                document.getElementById("passwordError").classList.remove("d-none");
+                passwordInput.classList.add("is-invalid");
+            }
+            return;
+        }
 
- document.getElementById('password').addEventListener('input', function () {
-     if (this.value.trim() !== '') {
-         this.classList.remove('is-invalid');
-         document.getElementById('passwordError').classList.add('d-none');
-         document.getElementById('incorrectFeedback').style.display = 'none';
-     }
- });
+        try {
+            const response = await fetch(`${apiBaseUrl}/auth/login-admin`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password }) 
+            });
+
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.error || "Login failed");
+
+            
+            localStorage.setItem("adminToken", data.token);
+
+            
+            document.querySelector(".toast-body").textContent = "Login successful! Redirecting to dashboard...";
+            $('#toast').toast('show'); 
+
+            
+            setTimeout(() => {
+                window.location.href = "dashboard.html";
+            }, 2000);
+        } catch (error) {
+            console.error("Login error:", error);
+            document.getElementById("incorrectFeedback").style.display = "block"; 
+        }
+    });
+
+    
+    const passwordContainer = document.querySelector(".password-container");
+    if (passwordContainer) {
+        passwordContainer.addEventListener("click", function (event) {
+            if (event.target.matches('.fa-eye, .fa-eye-slash')) {
+                const passwordField = document.getElementById("password");
+                const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+                passwordField.setAttribute("type", type);
+                event.target.classList.toggle("fa-eye-slash");
+            }
+        });
+    }
+
+    
+    const usernameInput = document.getElementById("username");
+    if (usernameInput) {
+        usernameInput.addEventListener("input", function () {
+            if (this.value.trim() !== '') {
+                this.classList.remove("is-invalid");
+                document.getElementById("usernameError").classList.add("d-none");
+            }
+        });
+    }
+
+    const passwordInput = document.getElementById("password");
+    if (passwordInput) {
+        passwordInput.addEventListener("input", function () {
+            if (this.value.trim() !== '') {
+                this.classList.remove("is-invalid");
+                document.getElementById("passwordError").classList.add("d-none");
+            }
+        });
+    }
+});
