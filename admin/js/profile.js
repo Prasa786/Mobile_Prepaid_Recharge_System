@@ -1,4 +1,4 @@
-document.getElementById('profileForm').addEventListener('submit', function (e) {
+document.getElementById('profileForm').addEventListener('submit', async function (e) {
     e.preventDefault();
 
     const fullName = document.getElementById('fullName');
@@ -10,7 +10,6 @@ document.getElementById('profileForm').addEventListener('submit', function (e) {
 
     let isValid = true;
 
-    
     if (fullName.value.trim() === '') {
         fullName.classList.add('is-invalid');
         fullNameError.classList.remove('d-none');
@@ -20,7 +19,6 @@ document.getElementById('profileForm').addEventListener('submit', function (e) {
         fullNameError.classList.add('d-none');
     }
 
-    
     if (email.value.trim() === '' || !validateEmail(email.value)) {
         email.classList.add('is-invalid');
         emailError.classList.remove('d-none');
@@ -30,7 +28,6 @@ document.getElementById('profileForm').addEventListener('submit', function (e) {
         emailError.classList.add('d-none');
     }
 
-    
     if (address.value.trim() === '') {
         address.classList.add('is-invalid');
         addressError.classList.remove('d-none');
@@ -40,14 +37,44 @@ document.getElementById('profileForm').addEventListener('submit', function (e) {
         addressError.classList.add('d-none');
     }
 
-    
     if (isValid) {
-        alert('Profile updated successfully!');
-        
+        const token = localStorage.getItem('adminToken');
+        if (!token) {
+            window.location.href = "/admin/html/index.html"; 
+            throw new Error("No token found in localStorage. Please log in again.");
+        }
+        const headers = {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        };
+
+        const profileData = {
+            fullName: fullName.value.trim(),
+            email: email.value.trim(),
+            address: address.value.trim()
+        };
+
+        try {
+            const response = await fetch('http://localhost:8083/api/profile', {
+                method: 'PUT',
+                headers: headers,
+                body: JSON.stringify(profileData)
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Failed to update profile: ${response.status} - ${errorText}`);
+            }
+
+            alert('Profile updated successfully!');
+        } catch (error) {
+            console.error('Error updating profile:', error);
+            alert('Failed to update profile. Please try again.');
+        }
     }
 });
 
-document.getElementById('changePasswordForm').addEventListener('submit', function (e) {
+document.getElementById('changePasswordForm').addEventListener('submit', async function (e) {
     e.preventDefault();
 
     const currentPassword = document.getElementById('currentPassword');
@@ -59,7 +86,6 @@ document.getElementById('changePasswordForm').addEventListener('submit', functio
 
     let isValid = true;
 
-    
     if (currentPassword.value.trim() === '') {
         currentPassword.classList.add('is-invalid');
         currentPasswordError.classList.remove('d-none');
@@ -69,7 +95,6 @@ document.getElementById('changePasswordForm').addEventListener('submit', functio
         currentPasswordError.classList.add('d-none');
     }
 
-    
     if (newPassword.value.trim() === '') {
         newPassword.classList.add('is-invalid');
         newPasswordError.classList.remove('d-none');
@@ -79,7 +104,6 @@ document.getElementById('changePasswordForm').addEventListener('submit', functio
         newPasswordError.classList.add('d-none');
     }
 
-    
     if (confirmNewPassword.value.trim() !== newPassword.value.trim()) {
         confirmNewPassword.classList.add('is-invalid');
         confirmNewPasswordError.classList.remove('d-none');
@@ -89,38 +113,37 @@ document.getElementById('changePasswordForm').addEventListener('submit', functio
         confirmNewPasswordError.classList.add('d-none');
     }
 
-    
     if (isValid) {
-        alert('Password changed successfully!');
-        
+        const token = localStorage.getItem('adminToken'); 
+        const headers = {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        };
+
+        const passwordData = {
+            currentPassword: currentPassword.value.trim(),
+            newPassword: newPassword.value.trim()
+        };
+
+        try {
+            const response = await fetch('http://localhost:8083/api/change-password', {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(passwordData)
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Failed to change password: ${response.status} - ${errorText}`);
+            }
+
+            alert('Password changed successfully!');
+        } catch (error) {
+            console.error('Error changing password:', error);
+            alert('Failed to change password. Please try again.');
+        }
     }
 });
-
-
-function validateEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(String(email).toLowerCase());
-}
-
-
-const modal = document.getElementById("changePasswordModal");
-const btn = document.getElementById("changePasswordBtn");
-const span = document.getElementsByClassName("close")[0];
-
-btn.onclick = function() {
-    modal.style.display = "block";
-}
-
-span.onclick = function() {
-    modal.style.display = "none";
-}
-
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-
 
 function validateEmail(email) {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

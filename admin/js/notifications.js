@@ -1,4 +1,4 @@
-document.getElementById('notificationForm').addEventListener('submit', function (e) {
+document.getElementById('notificationForm').addEventListener('submit', async function (e) {
     e.preventDefault();
 
     const subscriberInput = document.getElementById('subscriberSelect');
@@ -8,7 +8,6 @@ document.getElementById('notificationForm').addEventListener('submit', function 
 
     let isValid = true;
 
-    
     if (subscriberInput.value.trim() === '') {
         subscriberInput.classList.add('is-invalid');
         subscriberError.classList.remove('d-none');
@@ -18,7 +17,6 @@ document.getElementById('notificationForm').addEventListener('submit', function 
         subscriberError.classList.add('d-none');
     }
 
-    
     if (messageInput.value.trim() === '' || messageInput.value.trim().length < 10) {
         messageInput.classList.add('is-invalid');
         messageError.classList.remove('d-none');
@@ -28,43 +26,57 @@ document.getElementById('notificationForm').addEventListener('submit', function 
         messageError.classList.add('d-none');
     }
 
-    
     if (isValid) {
         const subscriberName = subscriberInput.value;
-        const message = messageInput.value;
         const mobile = getMobileNumber(subscriberName);
+        const notificationMessage = messageInput.value;
 
         if (!mobile) {
             alert('Subscriber not found!');
             return;
         }
 
-        const newNotification = {
-            id: notifications.length + 1,
-            name: subscriberName,
-            mobile: mobile,
-            message: message,
-            dateSent: new Date().toLocaleDateString(),
-            status: 'Sent'
-        };
+        const token = localStorage.getItem('adminToken');
 
-        notifications.push(newNotification); 
-        loadNotifications(); 
-        alert('Notification sent successfully!');
-        this.reset(); 
+        try {
+
+            if (!token) {
+                window.location.href = "/admin/html/index.html"; 
+                throw new Error("No token found in localStorage. Please log in again.");
+            }
+            
+            const emailResponse = await fetch('http://localhost:8083/api/notifications/send-email', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: mobile, subject: 'Notification', message: notificationMessage })
+            });
+
+            if (!emailResponse.ok) {
+                throw new Error('Failed to send email notification');
+            }
+
+            alert(`Notification sent to ${subscriberName}: ${notificationMessage}`);
+            loadNotifications();
+            this.reset();
+        } catch (error) {
+            console.error('Error sending notification:', error);
+            alert('Failed to send notification. Please try again.');
+        }
     }
 });
 
 function getMobileNumber(name) {
     const subscribers = [
-        { name: 'Tony Stsrk', mobile: '9876543212' },
+        { name: 'Tony Stark', mobile: '9876543212' },
         { name: 'Steve Rogers', mobile: '9876543213' }
     ];
 
     const subscriber = subscribers.find(sub => sub.name === name);
     return subscriber ? subscriber.mobile : null;
 }
-
 
 function loadNotifications() {
     const notificationHistoryList = document.getElementById('notificationHistoryList');
@@ -83,7 +95,6 @@ function loadNotifications() {
         notificationHistoryList.appendChild(row);
     });
 }
-
 
 const notifications = [
     {

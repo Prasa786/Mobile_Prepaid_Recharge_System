@@ -3,36 +3,18 @@ function Recharge() {
     const errorMessage = document.getElementById('error-message');
     const phoneNumber = phoneNumberInput.value;
 
-    const validPhoneNumbers = [
-        '9123456789',
-        '9876543210',
-        '9998887776',
-        '9922334455',
-        '9334455667',
-        '9999999999',
-        '9363473549',
-        '8608737228'
-    ];
-    
-    
     if (isEmpty(phoneNumber)) {
         errorMessage.textContent = 'Please enter a valid 10-digit phone number.';
         errorMessage.style.color = 'red';
+        return;
+    }
+
+    if (/^[6789]\d{9}$/.test(phoneNumber)) {
+        sessionStorage.setItem('phoneNumber', phoneNumber);
+        window.location.href = 'RechargePage.html';
     } else {
-        
-        if (validPhoneNumbers.includes(phoneNumber)) {
-            
-            if (validatePhoneNumber(phoneNumber)) {
-                localStorage.setItem('phoneNumber', phoneNumber);
-                window.location.href = 'RechargePage.html';
-            } else {
-                errorMessage.textContent = 'Please enter a valid 10-digit phone number.';
-                errorMessage.style.color = 'red';
-            }
-        } else {
-            errorMessage.textContent = 'The entered phone number is not recognized.';
-            errorMessage.style.color = 'red';
-        }
+        errorMessage.textContent = 'Please enter a valid 10-digit phone number.';
+        errorMessage.style.color = 'red';
     }
 }
 
@@ -40,13 +22,8 @@ function isEmpty(value) {
     return !value || value.trim().length === 0;
 }
 
-function validatePhoneNumber(phoneNumber) {
-    const phoneRegex = /^\d{10}$/;
-    return phoneRegex.test(phoneNumber);
-}
-
 function displayPhoneNumber() {
-    const storedPhoneNumber = localStorage.getItem('phoneNumber');
+    const storedPhoneNumber = sessionStorage.getItem('phoneNumber');
     const phoneNumberDisplay = document.getElementById('phone-number-display');
     phoneNumberDisplay.textContent = storedPhoneNumber ? `+91 ${storedPhoneNumber}` : 'Enter Number';
 }
@@ -63,12 +40,13 @@ function closePopup() {
 
 function savePhoneNumber() {
     const editedPhoneNumber = document.getElementById('edit-phone-number').value;
-    if (validatePhoneNumber(editedPhoneNumber)) {
-        localStorage.setItem('phoneNumber', editedPhoneNumber);
+    if (/^[6789]\d{9}$/.test(editedPhoneNumber)) {
+        sessionStorage.setItem('phoneNumber', editedPhoneNumber); // Store in sessionStorage
         displayPhoneNumber();
         closePopup();
     } else {
-        editError.classList.remove("d-none");    }
+        document.getElementById('editError').classList.remove("d-none");
+    }
 }
 
 document.addEventListener("DOMContentLoaded", function() {

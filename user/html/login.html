@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="/user/css/nav.css" type="text/css">
     <link rel="stylesheet" href="/user/css/login.css" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
 </head>
 <body>
     <nav class="navbar navbar-expand-sm sticky-top">
@@ -29,7 +28,14 @@
                 </ul>
             </div>
             <div class="d-flex align-items-center gap-3">
-                <span class="material-icons" style="color: white;">account_circle</span>
+                <div class="avatar-dropdown">
+                    <div class="avatar" id="accountLogo">
+                        <span class="material-icons">account_circle</span>
+                    </div>
+                    <div class="dropdown-content" id="dropdownContent" style="display: none;">
+                        <a href="#" id="logoutButton">Logout</a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>

@@ -4,14 +4,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const addPlanForm = document.getElementById('add-plan-form');
     const availablePlansTbody = document.getElementById('availablePlansTbody');
     const pagination = document.querySelector(".pagination");
-    const itemsPerPage = 10; // Number of rows per page
+    const itemsPerPage = 10;
     let currentPage = 0;
     let allPlans = [];
 
-    // Fetch plans from the backend
     async function fetchPlans() {
-        const token = localStorage.getItem('adminToken'); // Retrieve the token from localStorage
-        console.log("Fetching plans with token:", token); // Log the token for debugging
+        const token = localStorage.getItem('adminToken');
+        console.log("Fetching plans with token:", token);
+
+        if (!token) {
+            window.location.href = "/admin/html/index.html"; 
+            throw new Error("No token found in localStorage. Please log in again.");
+        }
     
         const headers = {
             'Content-Type': 'application/json',
@@ -32,17 +36,16 @@ document.addEventListener('DOMContentLoaded', function () {
     
             const plans = await response.json();
             console.log("Fetched plans:", plans);
-            allPlans = plans; // Store the fetched plans
-            renderTable(plans); // Render the table with the fetched plans
-            setupPagination(plans); // Set up pagination
+            allPlans = plans;
+            renderTable(plans);
+            setupPagination(plans);
         } catch (error) {
             console.error('Error fetching plans:', error);
         }
     }
 
-    // Render the table with plans
     function renderTable(plans) {
-        availablePlansTbody.innerHTML = ""; // Clear existing rows
+        availablePlansTbody.innerHTML = "";
         plans.forEach(plan => {
             const row = document.createElement('tr');
             row.innerHTML = `
@@ -65,19 +68,16 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Setup pagination
     function setupPagination(plans) {
         const totalPages = Math.ceil(plans.length / itemsPerPage);
         pagination.innerHTML = "";
 
-        // Previous button
         const prevButton = document.createElement("li");
         prevButton.className = "page-item";
         prevButton.innerHTML = `<a class="page-link" href="#" onclick="changePage(${currentPage - 1})">Previous</a>`;
         prevButton.disabled = currentPage === 1;
         pagination.appendChild(prevButton);
 
-        // Page numbers
         for (let i = 1; i <= totalPages; i++) {
             const pageItem = document.createElement("li");
             pageItem.className = "page-item" + (i === currentPage ? " active" : "");
@@ -85,7 +85,6 @@ document.addEventListener('DOMContentLoaded', function () {
             pagination.appendChild(pageItem);
         }
 
-        // Next button
         const nextButton = document.createElement("li");
         nextButton.className = "page-item";
         nextButton.innerHTML = `<a class="page-link" href="#" onclick="changePage(${currentPage + 1})">Next</a>`;
@@ -93,7 +92,6 @@ document.addEventListener('DOMContentLoaded', function () {
         pagination.appendChild(nextButton);
     }
 
-    // Change page
     window.changePage = function (page) {
         currentPage = page;
         const startIndex = (page - 1) * itemsPerPage;
@@ -103,7 +101,6 @@ document.addEventListener('DOMContentLoaded', function () {
         setupPagination(allPlans);
     };
 
-    // Add plan button click event
     addPlanButton.addEventListener('click', function () {
         addPlanPopup.style.display = 'flex';
         addPlanForm.reset();
@@ -117,7 +114,6 @@ document.addEventListener('DOMContentLoaded', function () {
         addPlanPopup.style.display = 'none';
     };
 
-    // Add a new plan
     function addPlan() {
         const plan = {
             name: document.getElementById('plan-name').value,
@@ -132,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         };
 
-        const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+        const token = localStorage.getItem('token');
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
@@ -153,14 +149,13 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(data => {
             closePopup();
-            fetchPlans(); // Refresh the plans list
+            fetchPlans();
         })
         .catch(error => console.error('Error adding plan:', error));
     }
 
-    // Edit a plan
     window.editPlan = function (id) {
-        const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+        const token = localStorage.getItem('token');
         const headers = {
             'Authorization': `Bearer ${token}`
         };
@@ -177,7 +172,6 @@ document.addEventListener('DOMContentLoaded', function () {
             return response.json();
         })
         .then(plan => {
-            // Populate the form with the plan details
             document.getElementById('plan-name').value = plan.name || '';
             document.getElementById('plan-price').value = plan.price || '';
             document.getElementById('plan-validity').value = plan.validity || '';
@@ -193,13 +187,12 @@ document.addEventListener('DOMContentLoaded', function () {
             addPlanPopup.style.display = 'flex';
             addPlanForm.onsubmit = function(e) {
                 e.preventDefault();
-                updatePlan(id); // Call updatePlan with the plan ID
+                updatePlan(id);
             };
         })
         .catch(error => console.error('Error fetching plan:', error));
     };
 
-    // Update an existing plan
     function updatePlan(id) {
         const plan = {
             name: document.getElementById('plan-name').value,
@@ -214,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         };
 
-        const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+        const token = localStorage.getItem('token');
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
@@ -235,15 +228,14 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(() => {
             closePopup();
-            fetchPlans(); // Refresh the plans list
+            fetchPlans(); 
         })
         .catch(error => console.error('Error updating plan:', error));
     }
 
-    // Delete a plan
     window.deletePlan = function (id) {
         if (confirm('Are you sure you want to delete this plan?')) {
-            const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+            const token = localStorage.getItem('token');
             const headers = {
                 'Authorization': `Bearer ${token}`
             };
@@ -258,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         throw new Error(`Failed to delete plan: ${response.status} - ${text}`);
                     });
                 }
-                fetchPlans(); // Refresh the plans list
+                fetchPlans();
             })
             .catch(error => console.error('Error deleting plan:', error));
         }

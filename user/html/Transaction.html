@@ -140,49 +140,5 @@
     <script src="/user/js/Script.js"></script>
     <script src="/user/js/validation.js" defer></script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const plan = JSON.parse(localStorage.getItem("selectedPlan"));
-            const mobileNumber = localStorage.getItem("phoneNumber");
-
-            if (plan) {
-                document.getElementById("price").innerText = `₹${plan.price}`;
-                document.getElementById("validity").innerText = plan.validity;
-                document.getElementById("data").innerText = plan.dataLimit;
-                document.getElementById("totalData").innerText = plan.totalData;
-            }
-            
-            if (mobileNumber) {
-                document.getElementById("phone-number-display").innerText = mobileNumber;
-            }
-
-            document.getElementById("proceedToPay").addEventListener("click", function () {
-                const options = {
-                    key: "rzp_test_1DP5mmOlF5G5ag", 
-                    amount: plan.price * 100,
-                    currency: "INR",
-                    name: "Mobi Recharge",
-                    description: "Mobile Recharge Payment",
-                    image: "https://example.com/logo.png",
-                    order_id: "",
-                    handler: function (response) {
-                        window.location.href = "/user/html/success.html";
-                        alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
-                    },
-                    prefill: {
-                        name: "David Billa", 
-                        email: "Billa@example.com", 
-                        contact: 9363473549, 
-                    },
-                    theme: {
-                        color: "#42b4fa", 
-                    },
-                };
-
-                const rzp = new Razorpay(options);
-                rzp.open();
-            });
-        });
-    </script>
 </body>
 </html>

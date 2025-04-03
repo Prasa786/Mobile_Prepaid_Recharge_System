@@ -1,15 +1,35 @@
-function scrollToTop() {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
+const accountLogo = document.getElementById("accountLogo");
+const dropdownContent = document.getElementById("dropdownContent");
+const logoutButton = document.getElementById("logoutButton");
+
+
+if (accountLogo) {
+    accountLogo.addEventListener("mouseenter", function () {
+        const token = sessionStorage.getItem("authToken");
+        if (token) {
+            dropdownContent.style.display = "block";
+        }
+    });
+    
+    accountLogo.addEventListener("mouseleave", function () {
+        dropdownContent.style.display = "none";
+    });
+
+    
+    accountLogo.addEventListener("click", function () {
+        const token = sessionStorage.getItem("authToken");
+        if (token) {
+            window.location.href = "/user/html/UserAccount.html";
+        } else {
+            window.location.href = "/user/html/login.html";
+        }
     });
 }
 
-window.onscroll = function() {
-    const topButton = document.getElementById('topButton');
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        topButton.style.display = "block";
-    } else {
-        topButton.style.display = "none"; 
-    }
-};
+if (logoutButton) {
+    logoutButton.addEventListener("click", function () {
+        sessionStorage.removeItem("authToken");
+        sessionStorage.removeItem("phoneNumber");
+        window.location.href = "/user/html/login.html";
+    });
+}

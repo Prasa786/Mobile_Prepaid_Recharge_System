@@ -1,15 +1,50 @@
 document.addEventListener("DOMContentLoaded", function () {
+    fetchUserDetails();
     initializeCharts();
 
-    
     document.getElementById('editProfileButton').addEventListener('click', toggleProfileEdit);
 });
 
-function initializeCharts() {
+async function fetchUserDetails() {
+    const token = sessionStorage.getItem("authToken");
+    if (!token) {
+        window.location.href = "/user/html/login.html";
+        return;
+    }
+
+    try {
+        const response = await fetch("http:/localhost:8083/api/user/details", {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch user details");
+        }
+
+        const userDetails = await response.json();
+        document.getElementById('nameDisplay').textContent = userDetails.name;
+        document.getElementById('phoneNumberDisplay').textContent = userDetails.phoneNumber;
+        document.getElementById('altPhoneNumberDisplay').textContent = userDetails.altPhoneNumber;
+        document.getElementById('emailDisplay').textContent = userDetails.email;
+        document.getElementById('currentPlan').textContent = userDetails.currentPlan;
+        document.getElementById('dataBalance').textContent = userDetails.dataBalance;
+        document.getElementById('validity').textContent = userDetails.validity;
+        document.getElementById('nextRechargeDate').textContent = userDetails.nextRechargeDate;
+
+    } catch (error) {
+        console.error("Error fetching user details:", error);
+        alert("Error fetching user details. Please try again.");
+    }
+}
+
+async function initializeCharts() {
     let chart1 = document.getElementById('dataUsageChart').getContext('2d');
     let chart2 = document.getElementById('monthlyDataUsageChart').getContext('2d');
 
-    
     new Chart(chart1, {
         type: 'bar',
         data: {
@@ -22,7 +57,6 @@ function initializeCharts() {
         }
     });
 
-    
     new Chart(chart2, {
         type: 'bar',
         data: {
@@ -45,23 +79,48 @@ function closeModal() {
     document.getElementById('editProfileModal').style.display = 'none';
 }
 
-function saveProfile() {
-    
+async function saveProfile() {
     const altPhoneNumber = document.getElementById('altPhoneInput').value;
     const email = document.getElementById('emailInput').value;
 
-    
     if (!altPhoneNumber || !email) {
         alert('All fields are required.');
         return;
     }
 
-    
-    document.getElementById('altPhoneNumberDisplay').textContent = altPhoneNumber;
-    document.getElementById('emailDisplay').textContent = email;
+    const token = sessionStorage.getItem("authToken");
+    if (!token) {
+        alert("You must be logged in to update your profile.");
+        return;
+    }
 
-    
-    closeModal();
+    try {
+        const response = await fetch("http:/localhost:8083/api/user/update", {
+            method: "PUT",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                altPhoneNumber: altPhoneNumber,
+                email: email
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to update profile");
+        }
+
+        document.getElementById('altPhoneNumberDisplay').textContent = altPhoneNumber;
+        document.getElementById('emailDisplay').textContent = email;
+
+        closeModal();
+        alert("Profile updated successfully!");
+
+    } catch (error) {
+        console.error("Error updating profile:", error);
+        alert("Error updating profile. Please try again.");
+    }
 }
 
 const invoices = [
@@ -78,65 +137,60 @@ const invoices = [
     { planName: "Data Plan", amountPaid: "Rs. 199", validity: "28 Days", details: "200GB/Plan", transactionId: "99889VBN", date: "01/01/2022" }
 ];
 
+const itemsPerPage = 5;
+let currentPage = 1;
 
-    const itemsPerPage = 5;
-    let currentPage = 1;
+function renderTable(page) {
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const paginatedItems = invoices.slice(start, end);
 
-    function renderTable(page) {
-        const start = (page - 1) * itemsPerPage;
-        const end = start + itemsPerPage;
-        const paginatedItems = invoices.slice(start, end);
+    const tableBody = document.getElementById("invoiceTable");
+    tableBody.innerHTML = "";
 
-        const tableBody = document.getElementById("invoiceTable");
-        tableBody.innerHTML = "";
-
-        paginatedItems.forEach((invoice, index) => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                <td>${invoice.planName}</td>
-                <td>${invoice.amountPaid}</td>
-                <td>${invoice.validity}</td>
-                <td>${invoice.details}</td>
-                <td>${invoice.transactionId}</td>
-                <td>${invoice.date}</td>
-                <td><button class="btn btn-primary btn-download" onclick="downloadInvoice(${start + index})">Download</button></td>
-            `;
-            tableBody.appendChild(row);
-        });
-    }
-
-    function downloadInvoice(index) {
-        const invoice = invoices[index];
-        const invoiceContent = `
-            Plan Name: ${invoice.planName}
-            Amount Paid: ${invoice.amountPaid}
-            Validity: ${invoice.validity}
-            Details: ${invoice.details}
-            Transaction ID: ${invoice.transactionId}
-            Date: ${invoice.date}
+    paginatedItems.forEach((invoice, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${invoice.planName}</td>
+            <td>${invoice.amountPaid}</td>
+            <td>${invoice.validity}</td>
+            <td>${invoice.details}</td>
+            <td>${invoice.transactionId}</td>
+            <td>${invoice.date}</td>
+            <td><button class="btn btn-primary btn-download" onclick="downloadInvoice(${start + index})">Download PDF</button></td>
         `;
-        const blob = new Blob([invoiceContent], { type: "text/plain" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "invoice.txt";
-        a.click();
-        URL.revokeObjectURL(url);
-    }
+        tableBody.appendChild(row);
+    });
+}
 
-    function previousPage() {
-        if (currentPage > 1) {
-            currentPage--;
-            renderTable(currentPage);
-        }
-    }
+function downloadInvoice(index) {
+    const invoice = invoices[index];
+    const invoiceContent = `
+        Plan Name: ${invoice.planName}
+        Amount Paid: ${invoice.amountPaid}
+        Validity: ${invoice.validity}
+        Details: ${invoice.details}
+        Transaction ID: ${invoice.transactionId}
+        Date: ${invoice.date}
+    `;
 
-    function nextPage() {
-        if (currentPage * itemsPerPage < invoices.length) {
-            currentPage++;
-            renderTable(currentPage);
-        }
-    }
+    const doc = new jsPDF();
+    doc.text(invoiceContent, 10, 10);
+    doc.save(`${invoice.planName}_Invoice.pdf`);
+}
 
-    
-    renderTable(currentPage);
+function previousPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        renderTable(currentPage);
+    }
+}
+
+function nextPage() {
+    if (currentPage * itemsPerPage < invoices.length) {
+        currentPage++;
+        renderTable(currentPage);
+    }
+}
+
+renderTable(currentPage);

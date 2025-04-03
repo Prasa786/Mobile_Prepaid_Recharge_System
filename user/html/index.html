@@ -9,7 +9,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/user/css/style.css" type="text/css">
     <link rel="stylesheet" href="/user/css/nav.css" type="text/css">
-    
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
@@ -30,9 +29,14 @@
                 </ul>
             </div>
             <div class="d-flex align-items-center gap-3">
-                <a href="/user/html/login.html" class="material-icons">
-                    account_circle
-                </a>
+                <div class="avatar-dropdown">
+                    <div class="avatar" id="accountLogo">
+                        <span class="material-icons">account_circle</span>
+                    </div>
+                    <div class="dropdown-content" id="dropdownContent" style="display: none;">
+                        <a href="#" id="logoutButton">Logout</a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -134,8 +138,6 @@
         </div>
     </div>
 
-    
-    
     <section class="testimonials">
         <div class="container mt-5">
             <div class="testimonial-container">
@@ -196,8 +198,6 @@
         </div>
     </section>
 
-    
-    
     <br><br>
     <footer class="text-white py-4">
         <div class="container">
@@ -277,7 +277,7 @@
             </p>
         </div>
     
-    </footer> 
+    </footer>
     <button onclick="scrollToTop()" id="topButton" class="btn btn-primary">
         <span class="material-icons">arrow_upward</span>
     </button>

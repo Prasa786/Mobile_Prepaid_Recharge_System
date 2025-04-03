@@ -1,135 +1,167 @@
-const subscribers = [
-    { username: 'BarackObama', email: 'barack.obama@example.com', mobile: '+91 9876543212', status: 'ACTIVE' },
-    { username: 'JoeBiden', email: 'joe.biden@example.com', mobile: '+91 9876543213', status: 'ACTIVE' },
-    { username: 'DonaldTrump', email: 'donald.trump@example.com', mobile: '+91 9876543214', status: 'ACTIVE' },
-    { username: 'Elon Musk', email: 'elon.musk@example.com', mobile: '+91 9876543215', status: 'ACTIVE' },
-    { username: 'Arvind Kejriwal', email: 'arvind.kejriwal@example.com', mobile: '+91 9876543216', status: 'ACTIVE' },
-    { username: 'Ethan Hunt', email: 'ethan.hunt@example.com', mobile: '+91 9876543217', status: 'INACTIVE' },
-    { username: 'LeonardoDiCaprio', email: 'leonardo.dicaprio@example.com', mobile: '+91 9876543218', status: 'ACTIVE' },
-    { username: 'BradPitt', email: 'brad.pitt@example.com', mobile: '+91 9876543219', status: 'ACTIVE' },
-    { username: 'TomCruise', email: 'tom.cruise@example.com', mobile: '+91 9876543220', status: 'ACTIVE' },
-    { username: 'AngelinaJolie', email: 'angelina.jolie@example.com', mobile: '+91 9876543221', status: 'INACTIVE' },
-    { username: 'TaylorSwift', email: 'taylor.swift@example.com', mobile: '+91 9876543222', status: 'ACTIVE' },
-    { username: 'Narendra Modi', email: 'narendra.modi@example.com', mobile: '+91 9876543223', status: 'ACTIVE' },
-    { username: 'Rahul Gandhi', email: 'rahul.gandhi@example.com', mobile: '+91 9976543217', status: 'ACTIVE' }
-];
+document.addEventListener("DOMContentLoaded", function () {
+    const tableBody = document.querySelector("#subscriber-table-body");
+    const searchInput = document.querySelector("#search");
+    const pagination = document.querySelector(".pagination");
+    const itemsPerPage = 10;
+    let currentPage = 1;
+    let allSubscribers = [];
 
-const rowsPerPage = 2;
-let currentPage = 1;
+    async function fetchSubscribers() {
+        const token = localStorage.getItem('adminToken');
+        if (!token) {
+            window.location.href = "/admin/html/index.html"; 
+            throw new Error("No token found in localStorage. Please log in again.");
+        }
+        const headers = {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        };
 
-function getStatusColor(status) {
-    return status === 'active' ? 'green' : 'red';
-}
+        try {
+            const response = await fetch('http://localhost:8083/api/users', {
+                method: 'GET',
+                headers: headers
+            });
 
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Failed to fetch subscribers: ${response.status} - ${errorText}`);
+            }
 
-function populateTable() {
-    const start = (currentPage - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-    const paginatedSubscribers = subscribers.slice(start, end);
+            const subscribers = await response.json();
+            allSubscribers = subscribers;
+            renderTable(subscribers);
+            setupPagination(subscribers); 
+        } catch (error) {
+            console.error('Error fetching subscribers:', error);
+            alert('Failed to fetch subscribers. Please try again.');
+        }
+    }
 
-    const tableBody = document.getElementById('subscriber-table-body');
-    tableBody.innerHTML = '';
-
-    paginatedSubscribers.forEach(subscriber => {
-        const row = `
-            <tr>
+    function renderTable(subscribers) {
+        tableBody.innerHTML = "";
+        subscribers.forEach(subscriber => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
                 <td>${subscriber.username}</td>
                 <td>${subscriber.mobile}</td>
-                <td>${subscriber.plan}</td>
-                <td>${subscriber.expiryDate}</td>
-                <td>${subscriber.lastRecharge}</td>
-                <td style="color: ${getStatusColor(subscriber.status)};">${subscriber.status}</td>
+                <td>${subscriber.plan?.name || 'N/A'}</td>
+                <td>${subscriber.plan?.endDate ? new Date(subscriber.plan.endDate).toLocaleDateString() : 'N/A'}</td>
+                <td>${subscriber.lastRecharge || 'N/A'}</td>
+                <td>${subscriber.status}</td>
                 <td>
-                    <button class="btn btn-info" onclick="viewHistory('${subscriber.name}', '${subscriber.mobile}', '${subscriber.plan}', '${subscriber.expiryDate}', '${subscriber.lastRecharge}')">View History</button>
-                    <button class="btn btn-danger" onclick="deleteSubscriber('${subscriber.mobile}')">Delete</button>
+                    <button class="btn btn-info btn-sm" onclick="viewHistory('${subscriber.mobile}')">View History</button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteSubscriber('${subscriber.mobile}')">Delete</button>
                 </td>
-            </tr>
-        `;
-        tableBody.innerHTML += row;
-    });
-}
-
-
-document.getElementById('search').addEventListener('input', function () {
-    const searchValue = this.value.toLowerCase();
-    const rows = document.querySelectorAll('#subscriber-list tbody tr');
-
-    rows.forEach(row => {
-        const name = row.cells[0].textContent.toLowerCase();
-        const mobile = row.cells[1].textContent.toLowerCase();
-
-        if (name.includes(searchValue) || mobile.includes(searchValue)) {
-            row.style.display = '';
-        } else {
-            row.style.display = 'none';
-        }
-    });
-});
-
-
-function viewHistory(name, mobile, plan, expiryDate, lastRecharge) {
-    
-    const popupOverlay = document.createElement('div');
-    popupOverlay.className = 'popup-overlay';
-
-    
-    const popupContent = document.createElement('div');
-    popupContent.className = 'popup-content';
-
-    
-    popupContent.innerHTML = `
-        <h3>Subscriber Details</h3>
-        <p><strong>Name:</strong> ${username}</p>
-        <p><strong>Mobile No.:</strong> ${mobile}</p>
-        <p><strong>Plan:</strong> ${plan}</p>
-        <p><strong>Expiry Date:</strong> ${expiryDate}</p>
-        <p><strong>Last Recharge:</strong> ${lastRecharge}</p>
-        <button class="btn btn-primary" onclick="closePopup()">Close</button>
-    `;
-
-    
-    popupOverlay.appendChild(popupContent);
-
-    
-    document.body.appendChild(popupOverlay);
-}
-
-
-function closePopup() {
-    const popupOverlay = document.querySelector('.popup-overlay');
-    if (popupOverlay) {
-        document.body.removeChild(popupOverlay);
+            `;
+            tableBody.appendChild(row);
+        });
     }
-}
 
+    async function viewHistory(mobile) {
+        const token = localStorage.getItem('adminToken');
+        if (!token) {
+            window.location.href = "/admin/html/index.html"; 
+            throw new Error("No token found in localStorage. Please log in again.");
+        }
+        const headers = {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        };
 
-function deleteSubscriber(mobile) {
-    const subscriber = subscribers.find(sub => sub.mobile === mobile);
-    if (subscriber) {
-        subscriber.status = 'inactive';
-        populateTable();
+        try {
+            const response = await fetch(`http://localhost:8083/api/recharge-history/user/${mobile}`, {
+                method: 'GET',
+                headers: headers
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Failed to fetch recharge history: ${response.status} - ${errorText}`);
+            }
+
+            const history = await response.json();
+            alert(`Recharge history for ${mobile}: ${JSON.stringify(history, null, 2)}`);
+        } catch (error) {
+            console.error('Error fetching recharge history:', error);
+            alert('Failed to fetch recharge history. Please try again.');
+        }
     }
-}
 
+    async function deleteSubscriber(mobile) {
+        if (confirm('Are you sure you want to delete this subscriber?')) {
+            const token = localStorage.getItem('adminToken'); 
+            if (!token) {
+                window.location.href = "/admin/html/index.html"; 
+                throw new Error("No token found in localStorage. Please log in again.");
+            }
+            const headers = {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            };
 
-document.querySelectorAll('.pagination .page-item').forEach(item => {
-    item.addEventListener('click', function () {
-        const page = this.getAttribute('data-page');
+            try {
+                const response = await fetch(`http://localhost:8083/api/users/${mobile}`, {
+                    method: 'DELETE',
+                    headers: headers
+                });
 
-        if (page === 'previous' && currentPage > 1) {
-            currentPage--;
-        } else if (page === 'next' && currentPage * rowsPerPage < subscribers.length) {
-            currentPage++;
-        } else if (!isNaN(page)) {
-            currentPage = parseInt(page);
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`Failed to delete subscriber: ${response.status} - ${errorText}`);
+                }
+
+                alert('Subscriber deleted successfully!');
+                fetchSubscribers();
+            } catch (error) {
+                console.error('Error deleting subscriber:', error);
+                alert('Failed to delete subscriber. Please try again.');
+            }
+        }
+    }
+
+    function setupPagination(subscribers) {
+        const totalPages = Math.ceil(subscribers.length / itemsPerPage);
+        pagination.innerHTML = "";
+
+        const prevButton = document.createElement("li");
+        prevButton.className = "page-item";
+        prevButton.innerHTML = `<a class="page-link" href="#" onclick="changePage(${currentPage - 1})">Previous</a>`;
+        prevButton.disabled = currentPage === 1;
+        pagination.appendChild(prevButton);
+
+        for (let i = 1; i <= totalPages; i++) {
+            const pageItem = document.createElement("li");
+            pageItem.className = "page-item" + (i === currentPage ? " active" : "");
+            pageItem.innerHTML = `<a class="page-link" href="#" onclick="changePage(${i})">${i}</a>`;
+            pagination.appendChild(pageItem);
         }
 
-        document.querySelectorAll('.pagination .page-item').forEach(item => item.classList.remove('active'));
-        document.querySelector(`.pagination .page-item[data-page="${currentPage}"]`).classList.add('active');
+        const nextButton = document.createElement("li");
+        nextButton.className = "page-item";
+        nextButton.innerHTML = `<a class="page-link" href="#" onclick="changePage(${currentPage + 1})">Next</a>`;
+        nextButton.disabled = currentPage === totalPages;
+        pagination.appendChild(nextButton);
+    }
 
-        populateTable();
+    window.changePage = function (page) {
+        currentPage = page;
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const paginatedSubscribers = allSubscribers.slice(startIndex, endIndex);
+        renderTable(paginatedSubscribers);
+        setupPagination(allSubscribers);
+    };
+
+    searchInput.addEventListener("input", function () {
+        const searchTerm = searchInput.value.toLowerCase();
+        const filteredSubscribers = allSubscribers.filter(subscriber =>
+            subscriber.username.toLowerCase().includes(searchTerm) ||
+            subscriber.mobile.toLowerCase().includes(searchTerm)
+        );
+        renderTable(filteredSubscribers);
+        setupPagination(filteredSubscribers);
     });
+
+    fetchSubscribers();
 });
-
-
-populateTable();
